@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Test</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+
+<body ng-app="TestApp">
+    <h1>Test</h1>
+    <div ng-controller="TestController">
+        {{number + 100}}
+    </div>
+
+    <script>
+    var app = angular.module("TestApp", []);
+    app.controller("TestController", function ($scope, $http) {
+        $http.get('/api/values/3').then(function (response) {
+            $scope.number = response.data;
+        });
+    });
+    </script>
+
+
+</body>
+</html>
