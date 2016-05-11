@@ -1,0 +1,1383 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PoslovnaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Analitika_magacinske_kartice">
+          <Key>
+            <PropertyRef Name="Id_Analitika_magacinske_kartice" />
+          </Key>
+          <Property Name="Id_Analitika_magacinske_kartice" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Robna_kartica" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Redni_broj_Analitika_magacinske_kartice" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Vrsta_prometa_Analitika_magacinske_kartice" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="Smer_Analitika_magacinske_kartice" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Kolicina_Analitika_magacinske_kartice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Cena_Analitika_magacinske_kartice" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Vrednost_Analitika_magacinske_kartice" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Faktura">
+          <Key>
+            <PropertyRef Name="Id_Faktura" />
+          </Key>
+          <Property Name="Id_Faktura" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Poslovna_godina" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Partner" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Broj_fakture_Faktura" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Datum_fakture_Faktura" Type="datetime" Nullable="false" />
+          <Property Name="Datum_valute_Faktura" Type="datetime" Nullable="false" />
+          <Property Name="Ukupan_rabat_Faktura" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Ukupan_iznos_bez_PDV_a_Faktura" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Ukupan_PDV_Faktura" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Ukupno_za_placanje_Faktura" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Grupa_roba">
+          <Key>
+            <PropertyRef Name="Id_Grupa_roba" />
+          </Key>
+          <Property Name="Id_Grupa_roba" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_PDV" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Preduzece" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_Grupa_roba" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jedinica_mere">
+          <Key>
+            <PropertyRef Name="Id_Jedinica_mere" />
+          </Key>
+          <Property Name="Id_Jedinica_mere" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_Jedinica_mere" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Magacin">
+          <Key>
+            <PropertyRef Name="Id_Magacin" />
+          </Key>
+          <Property Name="Id_Magacin" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Preduzece" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_Magacin" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Adresa_Magacin" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mesto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_Mesto" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Postansk_ broj_Mesto" Type="char" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PDV">
+          <Key>
+            <PropertyRef Name="Id_PDV" />
+          </Key>
+          <Property Name="Id_PDV" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_PDV" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Poslovna_godina">
+          <Key>
+            <PropertyRef Name="Id_Poslovna_godina" />
+          </Key>
+          <Property Name="Id_Poslovna_godina" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Preduzece" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Godina_Poslovna_godina" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="Zakljucena_Poslovna_godina" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Poslovni_partner">
+          <Key>
+            <PropertyRef Name="Id_Partner" />
+          </Key>
+          <Property Name="Id_Partner" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Preduzece" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Tip_Partner" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Naziv_Partner" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PIB_Partner" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Maticni_broj_Partner" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="Adresa_Partner" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Preduzece">
+          <Key>
+            <PropertyRef Name="Id_Preduzece" />
+          </Key>
+          <Property Name="Id_Preduzece" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_Preduzece" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Maticni_broj_Preduzece" Type="numeric" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="PIB_Preduzece" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Adresa_Preduzece" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Prijemni_dokument">
+          <Key>
+            <PropertyRef Name="Id_Prijemni_dokument" />
+          </Key>
+          <Property Name="Id_Prijemni_dokument" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Magacin" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Mag_Id_Magacin" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Id_Partner" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Redni_broj_Prijemni_dokument" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Datum_formiranja_Prijemni_dokument" Type="datetime" Nullable="false" />
+          <Property Name="Datum_knjizenja_Prijemni_dokument" Type="datetime" />
+          <Property Name="Status_Prijemni_dokument" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Ukupna_vrednost_Prijemni_dokument" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Transportni_troskovi_Prijemni_dokument" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Zavisni_troskovi_Prijemni_dokument" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Roba">
+          <Key>
+            <PropertyRef Name="Id_Roba" />
+          </Key>
+          <Property Name="Id_Roba" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Grupa_roba" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Preduzece" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Jedinica_mere" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_Roba" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Robna_kartica">
+          <Key>
+            <PropertyRef Name="Id_Robna_kartica" />
+          </Key>
+          <Property Name="Id_Robna_kartica" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Poslovna_godina" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Magacin" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Roba" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Prosecna_cena_Robna_kartica" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Poc_stanje_kol_Robna_kartica" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Poc_stanje_vrednost_Robna_kartica" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Promet_ulaza_kol_Robna_kartica" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Promet_ulaza_vr_Robna_kartica" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Promet_izlaza_kol_Robna_kartica" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Promet_izlaza_vr_Robna_kartica" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Ukupna_kolicina_Robna_kartica" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Ukupna_vrednost_Robna_kartica" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Stavka_dokumenta">
+          <Key>
+            <PropertyRef Name="Id_Stavka_dokumenta" />
+          </Key>
+          <Property Name="Id_Stavka_dokumenta" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Roba" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Prijemni_dokument" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Kolicina_Stavka_dokumenta" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Nabavna_vrednost_Stavka_dokumenta" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Procenat_marze_Stavka_dokumenta" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Transportni_trosak_Stavka_dokumenta" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Zavisni_trosak_Stavka_dokumenta" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Kalkulisana_cena_Stavka_dokumenta" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Ukupna_vrednost_Stavka_dokumenta" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Stopa_PDV_a">
+          <Key>
+            <PropertyRef Name="Id_Stopa_PDV_a" />
+          </Key>
+          <Property Name="Id_Stopa_PDV_a" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_PDV" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Stopa_Stopa_PDV_a" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="Datum_vazenja_Stopa_PDV_a" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ANALITIK_RELATIONS_ROBNA_KA">
+          <End Role="Robna_kartica" Type="Self.Robna_kartica" Multiplicity="1" />
+          <End Role="Analitika_magacinske_kartice" Type="Self.Analitika_magacinske_kartice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Robna_kartica">
+              <PropertyRef Name="Id_Robna_kartica" />
+            </Principal>
+            <Dependent Role="Analitika_magacinske_kartice">
+              <PropertyRef Name="Id_Robna_kartica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FAKTURA_RELATIONS_POSLOVNA">
+          <End Role="Poslovna_godina" Type="Self.Poslovna_godina" Multiplicity="1" />
+          <End Role="Faktura" Type="Self.Faktura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poslovna_godina">
+              <PropertyRef Name="Id_Poslovna_godina" />
+            </Principal>
+            <Dependent Role="Faktura">
+              <PropertyRef Name="Id_Poslovna_godina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FAKTURA_RELATIONS_POSLOVNI">
+          <End Role="Poslovni_partner" Type="Self.Poslovni_partner" Multiplicity="1" />
+          <End Role="Faktura" Type="Self.Faktura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poslovni_partner">
+              <PropertyRef Name="Id_Partner" />
+            </Principal>
+            <Dependent Role="Faktura">
+              <PropertyRef Name="Id_Partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GRUPA_RO_PDV GRUPE_PDV">
+          <End Role="PDV" Type="Self.PDV" Multiplicity="1" />
+          <End Role="Grupa_roba" Type="Self.Grupa_roba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PDV">
+              <PropertyRef Name="Id_PDV" />
+            </Principal>
+            <Dependent Role="Grupa_roba">
+              <PropertyRef Name="Id_PDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GRUPA_RO_RELATIONS_PREDUZEC">
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="1" />
+          <End Role="Grupa_roba" Type="Self.Grupa_roba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preduzece">
+              <PropertyRef Name="Id_Preduzece" />
+            </Principal>
+            <Dependent Role="Grupa_roba">
+              <PropertyRef Name="Id_Preduzece" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MAGACIN_RELATIONS_MESTO">
+          <End Role="Mesto" Type="Self.Mesto" Multiplicity="1" />
+          <End Role="Magacin" Type="Self.Magacin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Magacin">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MAGACIN_RELATIONS_PREDUZEC">
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="0..1" />
+          <End Role="Magacin" Type="Self.Magacin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preduzece">
+              <PropertyRef Name="Id_Preduzece" />
+            </Principal>
+            <Dependent Role="Magacin">
+              <PropertyRef Name="Id_Preduzece" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POSLOVNA_RELATIONS_PREDUZEC">
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="1" />
+          <End Role="Poslovna_godina" Type="Self.Poslovna_godina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preduzece">
+              <PropertyRef Name="Id_Preduzece" />
+            </Principal>
+            <Dependent Role="Poslovna_godina">
+              <PropertyRef Name="Id_Preduzece" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POSLOVNI_RELATIONS_MESTO">
+          <End Role="Mesto" Type="Self.Mesto" Multiplicity="1" />
+          <End Role="Poslovni_partner" Type="Self.Poslovni_partner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Poslovni_partner">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POSLOVNI_RELATIONS_PREDUZEC">
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="1" />
+          <End Role="Poslovni_partner" Type="Self.Poslovni_partner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preduzece">
+              <PropertyRef Name="Id_Preduzece" />
+            </Principal>
+            <Dependent Role="Poslovni_partner">
+              <PropertyRef Name="Id_Preduzece" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PREDUZEC_RELATIONS_MESTO">
+          <End Role="Mesto" Type="Self.Mesto" Multiplicity="1" />
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Preduzece">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJEMNI_MAGACIN U_MAGACIN">
+          <End Role="Magacin" Type="Self.Magacin" Multiplicity="0..1" />
+          <End Role="Prijemni_dokument" Type="Self.Prijemni_dokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magacin">
+              <PropertyRef Name="Id_Magacin" />
+            </Principal>
+            <Dependent Role="Prijemni_dokument">
+              <PropertyRef Name="Mag_Id_Magacin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJEMNI_POSLOVNI _POSLOVNI">
+          <End Role="Poslovni_partner" Type="Self.Poslovni_partner" Multiplicity="0..1" />
+          <End Role="Prijemni_dokument" Type="Self.Prijemni_dokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poslovni_partner">
+              <PropertyRef Name="Id_Partner" />
+            </Principal>
+            <Dependent Role="Prijemni_dokument">
+              <PropertyRef Name="Id_Partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJEMNI_PROMETNI _MAGACIN">
+          <End Role="Magacin" Type="Self.Magacin" Multiplicity="1" />
+          <End Role="Prijemni_dokument" Type="Self.Prijemni_dokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magacin">
+              <PropertyRef Name="Id_Magacin" />
+            </Principal>
+            <Dependent Role="Prijemni_dokument">
+              <PropertyRef Name="Id_Magacin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROBA_RELATIONS_GRUPA_RO">
+          <End Role="Grupa_roba" Type="Self.Grupa_roba" Multiplicity="1" />
+          <End Role="Roba" Type="Self.Roba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupa_roba">
+              <PropertyRef Name="Id_Grupa_roba" />
+            </Principal>
+            <Dependent Role="Roba">
+              <PropertyRef Name="Id_Grupa_roba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROBA_RELATIONS_JEDINICA">
+          <End Role="Jedinica_mere" Type="Self.Jedinica_mere" Multiplicity="1" />
+          <End Role="Roba" Type="Self.Roba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jedinica_mere">
+              <PropertyRef Name="Id_Jedinica_mere" />
+            </Principal>
+            <Dependent Role="Roba">
+              <PropertyRef Name="Id_Jedinica_mere" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROBA_RELATIONS_PREDUZEC">
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="1" />
+          <End Role="Roba" Type="Self.Roba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preduzece">
+              <PropertyRef Name="Id_Preduzece" />
+            </Principal>
+            <Dependent Role="Roba">
+              <PropertyRef Name="Id_Preduzece" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROBNA_KA_RELATIONS_MAGACIN">
+          <End Role="Magacin" Type="Self.Magacin" Multiplicity="1" />
+          <End Role="Robna_kartica" Type="Self.Robna_kartica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magacin">
+              <PropertyRef Name="Id_Magacin" />
+            </Principal>
+            <Dependent Role="Robna_kartica">
+              <PropertyRef Name="Id_Magacin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROBNA_KA_RELATIONS_POSLOVNA">
+          <End Role="Poslovna_godina" Type="Self.Poslovna_godina" Multiplicity="1" />
+          <End Role="Robna_kartica" Type="Self.Robna_kartica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poslovna_godina">
+              <PropertyRef Name="Id_Poslovna_godina" />
+            </Principal>
+            <Dependent Role="Robna_kartica">
+              <PropertyRef Name="Id_Poslovna_godina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROBNA_KA_RELATIONS_ROBA">
+          <End Role="Roba" Type="Self.Roba" Multiplicity="1" />
+          <End Role="Robna_kartica" Type="Self.Robna_kartica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roba">
+              <PropertyRef Name="Id_Roba" />
+            </Principal>
+            <Dependent Role="Robna_kartica">
+              <PropertyRef Name="Id_Roba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STAVKA_D_RELATIONS_PRIJEMNI">
+          <End Role="Prijemni_dokument" Type="Self.Prijemni_dokument" Multiplicity="1" />
+          <End Role="Stavka_dokumenta" Type="Self.Stavka_dokumenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prijemni_dokument">
+              <PropertyRef Name="Id_Prijemni_dokument" />
+            </Principal>
+            <Dependent Role="Stavka_dokumenta">
+              <PropertyRef Name="Id_Prijemni_dokument" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STAVKA_D_RELATIONS_ROBA">
+          <End Role="Roba" Type="Self.Roba" Multiplicity="1" />
+          <End Role="Stavka_dokumenta" Type="Self.Stavka_dokumenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roba">
+              <PropertyRef Name="Id_Roba" />
+            </Principal>
+            <Dependent Role="Stavka_dokumenta">
+              <PropertyRef Name="Id_Roba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STOPA_PD_PDV PO ST_PDV">
+          <End Role="PDV" Type="Self.PDV" Multiplicity="1" />
+          <End Role="Stopa_PDV_a" Type="Self.Stopa_PDV_a" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PDV">
+              <PropertyRef Name="Id_PDV" />
+            </Principal>
+            <Dependent Role="Stopa_PDV_a">
+              <PropertyRef Name="Id_PDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PoslovnaModelStoreContainer">
+          <EntitySet Name="Analitika_magacinske_kartice" EntityType="Self.Analitika_magacinske_kartice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Faktura" EntityType="Self.Faktura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grupa_roba" EntityType="Self.Grupa_roba" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jedinica_mere" EntityType="Self.Jedinica_mere" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Magacin" EntityType="Self.Magacin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mesto" EntityType="Self.Mesto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PDV" EntityType="Self.PDV" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Poslovna_godina" EntityType="Self.Poslovna_godina" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Poslovni_partner" EntityType="Self.Poslovni_partner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Preduzece" EntityType="Self.Preduzece" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prijemni_dokument" EntityType="Self.Prijemni_dokument" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roba" EntityType="Self.Roba" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Robna_kartica" EntityType="Self.Robna_kartica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stavka_dokumenta" EntityType="Self.Stavka_dokumenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stopa_PDV_a" EntityType="Self.Stopa_PDV_a" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ANALITIK_RELATIONS_ROBNA_KA" Association="Self.FK_ANALITIK_RELATIONS_ROBNA_KA">
+            <End Role="Robna_kartica" EntitySet="Robna_kartica" />
+            <End Role="Analitika_magacinske_kartice" EntitySet="Analitika_magacinske_kartice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FAKTURA_RELATIONS_POSLOVNA" Association="Self.FK_FAKTURA_RELATIONS_POSLOVNA">
+            <End Role="Poslovna_godina" EntitySet="Poslovna_godina" />
+            <End Role="Faktura" EntitySet="Faktura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FAKTURA_RELATIONS_POSLOVNI" Association="Self.FK_FAKTURA_RELATIONS_POSLOVNI">
+            <End Role="Poslovni_partner" EntitySet="Poslovni_partner" />
+            <End Role="Faktura" EntitySet="Faktura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GRUPA_RO_PDV GRUPE_PDV" Association="Self.FK_GRUPA_RO_PDV GRUPE_PDV">
+            <End Role="PDV" EntitySet="PDV" />
+            <End Role="Grupa_roba" EntitySet="Grupa_roba" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GRUPA_RO_RELATIONS_PREDUZEC" Association="Self.FK_GRUPA_RO_RELATIONS_PREDUZEC">
+            <End Role="Preduzece" EntitySet="Preduzece" />
+            <End Role="Grupa_roba" EntitySet="Grupa_roba" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MAGACIN_RELATIONS_MESTO" Association="Self.FK_MAGACIN_RELATIONS_MESTO">
+            <End Role="Mesto" EntitySet="Mesto" />
+            <End Role="Magacin" EntitySet="Magacin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MAGACIN_RELATIONS_PREDUZEC" Association="Self.FK_MAGACIN_RELATIONS_PREDUZEC">
+            <End Role="Preduzece" EntitySet="Preduzece" />
+            <End Role="Magacin" EntitySet="Magacin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POSLOVNA_RELATIONS_PREDUZEC" Association="Self.FK_POSLOVNA_RELATIONS_PREDUZEC">
+            <End Role="Preduzece" EntitySet="Preduzece" />
+            <End Role="Poslovna_godina" EntitySet="Poslovna_godina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POSLOVNI_RELATIONS_MESTO" Association="Self.FK_POSLOVNI_RELATIONS_MESTO">
+            <End Role="Mesto" EntitySet="Mesto" />
+            <End Role="Poslovni_partner" EntitySet="Poslovni_partner" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POSLOVNI_RELATIONS_PREDUZEC" Association="Self.FK_POSLOVNI_RELATIONS_PREDUZEC">
+            <End Role="Preduzece" EntitySet="Preduzece" />
+            <End Role="Poslovni_partner" EntitySet="Poslovni_partner" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PREDUZEC_RELATIONS_MESTO" Association="Self.FK_PREDUZEC_RELATIONS_MESTO">
+            <End Role="Mesto" EntitySet="Mesto" />
+            <End Role="Preduzece" EntitySet="Preduzece" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJEMNI_MAGACIN U_MAGACIN" Association="Self.FK_PRIJEMNI_MAGACIN U_MAGACIN">
+            <End Role="Magacin" EntitySet="Magacin" />
+            <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJEMNI_POSLOVNI _POSLOVNI" Association="Self.FK_PRIJEMNI_POSLOVNI _POSLOVNI">
+            <End Role="Poslovni_partner" EntitySet="Poslovni_partner" />
+            <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJEMNI_PROMETNI _MAGACIN" Association="Self.FK_PRIJEMNI_PROMETNI _MAGACIN">
+            <End Role="Magacin" EntitySet="Magacin" />
+            <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROBA_RELATIONS_GRUPA_RO" Association="Self.FK_ROBA_RELATIONS_GRUPA_RO">
+            <End Role="Grupa_roba" EntitySet="Grupa_roba" />
+            <End Role="Roba" EntitySet="Roba" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROBA_RELATIONS_JEDINICA" Association="Self.FK_ROBA_RELATIONS_JEDINICA">
+            <End Role="Jedinica_mere" EntitySet="Jedinica_mere" />
+            <End Role="Roba" EntitySet="Roba" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROBA_RELATIONS_PREDUZEC" Association="Self.FK_ROBA_RELATIONS_PREDUZEC">
+            <End Role="Preduzece" EntitySet="Preduzece" />
+            <End Role="Roba" EntitySet="Roba" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROBNA_KA_RELATIONS_MAGACIN" Association="Self.FK_ROBNA_KA_RELATIONS_MAGACIN">
+            <End Role="Magacin" EntitySet="Magacin" />
+            <End Role="Robna_kartica" EntitySet="Robna_kartica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROBNA_KA_RELATIONS_POSLOVNA" Association="Self.FK_ROBNA_KA_RELATIONS_POSLOVNA">
+            <End Role="Poslovna_godina" EntitySet="Poslovna_godina" />
+            <End Role="Robna_kartica" EntitySet="Robna_kartica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROBNA_KA_RELATIONS_ROBA" Association="Self.FK_ROBNA_KA_RELATIONS_ROBA">
+            <End Role="Roba" EntitySet="Roba" />
+            <End Role="Robna_kartica" EntitySet="Robna_kartica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STAVKA_D_RELATIONS_PRIJEMNI" Association="Self.FK_STAVKA_D_RELATIONS_PRIJEMNI">
+            <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
+            <End Role="Stavka_dokumenta" EntitySet="Stavka_dokumenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STAVKA_D_RELATIONS_ROBA" Association="Self.FK_STAVKA_D_RELATIONS_ROBA">
+            <End Role="Roba" EntitySet="Roba" />
+            <End Role="Stavka_dokumenta" EntitySet="Stavka_dokumenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STOPA_PD_PDV PO ST_PDV" Association="Self.FK_STOPA_PD_PDV PO ST_PDV">
+            <End Role="PDV" EntitySet="PDV" />
+            <End Role="Stopa_PDV_a" EntitySet="Stopa_PDV_a" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PoslovnaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Analitika_magacinske_kartice">
+          <Key>
+            <PropertyRef Name="Id_Analitika_magacinske_kartice" />
+          </Key>
+          <Property Name="Id_Analitika_magacinske_kartice" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Robna_kartica" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Redni_broj_Analitika_magacinske_kartice" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Vrsta_prometa_Analitika_magacinske_kartice" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Smer_Analitika_magacinske_kartice" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Kolicina_Analitika_magacinske_kartice" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Cena_Analitika_magacinske_kartice" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Vrednost_Analitika_magacinske_kartice" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Robna_kartica" Relationship="Self.FK_ANALITIK_RELATIONS_ROBNA_KA" FromRole="Analitika_magacinske_kartice" ToRole="Robna_kartica" />
+        </EntityType>
+        <EntityType Name="Faktura">
+          <Key>
+            <PropertyRef Name="Id_Faktura" />
+          </Key>
+          <Property Name="Id_Faktura" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Poslovna_godina" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Partner" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Broj_fakture_Faktura" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Datum_fakture_Faktura" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Datum_valute_Faktura" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Ukupan_rabat_Faktura" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Ukupan_iznos_bez_PDV_a_Faktura" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Ukupan_PDV_Faktura" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Ukupno_za_placanje_Faktura" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Poslovna_godina" Relationship="Self.FK_FAKTURA_RELATIONS_POSLOVNA" FromRole="Faktura" ToRole="Poslovna_godina" />
+          <NavigationProperty Name="Poslovni_partner" Relationship="Self.FK_FAKTURA_RELATIONS_POSLOVNI" FromRole="Faktura" ToRole="Poslovni_partner" />
+        </EntityType>
+        <EntityType Name="Grupa_roba">
+          <Key>
+            <PropertyRef Name="Id_Grupa_roba" />
+          </Key>
+          <Property Name="Id_Grupa_roba" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_PDV" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Preduzece" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_Grupa_roba" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PDV" Relationship="Self.FK_GRUPA_RO_PDV_GRUPE_PDV" FromRole="Grupa_roba" ToRole="PDV" />
+          <NavigationProperty Name="Preduzece" Relationship="Self.FK_GRUPA_RO_RELATIONS_PREDUZEC" FromRole="Grupa_roba" ToRole="Preduzece" />
+          <NavigationProperty Name="Robas" Relationship="Self.FK_ROBA_RELATIONS_GRUPA_RO" FromRole="Grupa_roba" ToRole="Roba" />
+        </EntityType>
+        <EntityType Name="Jedinica_mere">
+          <Key>
+            <PropertyRef Name="Id_Jedinica_mere" />
+          </Key>
+          <Property Name="Id_Jedinica_mere" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_Jedinica_mere" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Robas" Relationship="Self.FK_ROBA_RELATIONS_JEDINICA" FromRole="Jedinica_mere" ToRole="Roba" />
+        </EntityType>
+        <EntityType Name="Magacin">
+          <Key>
+            <PropertyRef Name="Id_Magacin" />
+          </Key>
+          <Property Name="Id_Magacin" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Preduzece" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_Magacin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Adresa_Magacin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Mesto" Relationship="Self.FK_MAGACIN_RELATIONS_MESTO" FromRole="Magacin" ToRole="Mesto" />
+          <NavigationProperty Name="Preduzece" Relationship="Self.FK_MAGACIN_RELATIONS_PREDUZEC" FromRole="Magacin" ToRole="Preduzece" />
+          <NavigationProperty Name="Prijemni_dokument" Relationship="Self.FK_PRIJEMNI_MAGACIN_U_MAGACIN" FromRole="Magacin" ToRole="Prijemni_dokument" />
+          <NavigationProperty Name="Prijemni_dokument1" Relationship="Self.FK_PRIJEMNI_PROMETNI__MAGACIN" FromRole="Magacin" ToRole="Prijemni_dokument" />
+          <NavigationProperty Name="Robna_kartica" Relationship="Self.FK_ROBNA_KA_RELATIONS_MAGACIN" FromRole="Magacin" ToRole="Robna_kartica" />
+        </EntityType>
+        <EntityType Name="Mesto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_Mesto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Postansk__broj_Mesto" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Magacins" Relationship="Self.FK_MAGACIN_RELATIONS_MESTO" FromRole="Mesto" ToRole="Magacin" />
+          <NavigationProperty Name="Poslovni_partner" Relationship="Self.FK_POSLOVNI_RELATIONS_MESTO" FromRole="Mesto" ToRole="Poslovni_partner" />
+          <NavigationProperty Name="Preduzeces" Relationship="Self.FK_PREDUZEC_RELATIONS_MESTO" FromRole="Mesto" ToRole="Preduzece" />
+        </EntityType>
+        <EntityType Name="PDV">
+          <Key>
+            <PropertyRef Name="Id_PDV" />
+          </Key>
+          <Property Name="Id_PDV" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_PDV" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Grupa_roba" Relationship="Self.FK_GRUPA_RO_PDV_GRUPE_PDV" FromRole="PDV" ToRole="Grupa_roba" />
+          <NavigationProperty Name="Stopa_PDV_a" Relationship="Self.FK_STOPA_PD_PDV_PO_ST_PDV" FromRole="PDV" ToRole="Stopa_PDV_a" />
+        </EntityType>
+        <EntityType Name="Poslovna_godina">
+          <Key>
+            <PropertyRef Name="Id_Poslovna_godina" />
+          </Key>
+          <Property Name="Id_Poslovna_godina" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Preduzece" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Godina_Poslovna_godina" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="Zakljucena_Poslovna_godina" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Fakturas" Relationship="Self.FK_FAKTURA_RELATIONS_POSLOVNA" FromRole="Poslovna_godina" ToRole="Faktura" />
+          <NavigationProperty Name="Preduzece" Relationship="Self.FK_POSLOVNA_RELATIONS_PREDUZEC" FromRole="Poslovna_godina" ToRole="Preduzece" />
+          <NavigationProperty Name="Robna_kartica" Relationship="Self.FK_ROBNA_KA_RELATIONS_POSLOVNA" FromRole="Poslovna_godina" ToRole="Robna_kartica" />
+        </EntityType>
+        <EntityType Name="Poslovni_partner">
+          <Key>
+            <PropertyRef Name="Id_Partner" />
+          </Key>
+          <Property Name="Id_Partner" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Preduzece" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Tip_Partner" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Naziv_Partner" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PIB_Partner" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Maticni_broj_Partner" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="Adresa_Partner" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Fakturas" Relationship="Self.FK_FAKTURA_RELATIONS_POSLOVNI" FromRole="Poslovni_partner" ToRole="Faktura" />
+          <NavigationProperty Name="Mesto" Relationship="Self.FK_POSLOVNI_RELATIONS_MESTO" FromRole="Poslovni_partner" ToRole="Mesto" />
+          <NavigationProperty Name="Preduzece" Relationship="Self.FK_POSLOVNI_RELATIONS_PREDUZEC" FromRole="Poslovni_partner" ToRole="Preduzece" />
+          <NavigationProperty Name="Prijemni_dokument" Relationship="Self.FK_PRIJEMNI_POSLOVNI__POSLOVNI" FromRole="Poslovni_partner" ToRole="Prijemni_dokument" />
+        </EntityType>
+        <EntityType Name="Preduzece">
+          <Key>
+            <PropertyRef Name="Id_Preduzece" />
+          </Key>
+          <Property Name="Id_Preduzece" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_Preduzece" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Maticni_broj_Preduzece" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <Property Name="PIB_Preduzece" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="Adresa_Preduzece" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Grupa_roba" Relationship="Self.FK_GRUPA_RO_RELATIONS_PREDUZEC" FromRole="Preduzece" ToRole="Grupa_roba" />
+          <NavigationProperty Name="Magacins" Relationship="Self.FK_MAGACIN_RELATIONS_PREDUZEC" FromRole="Preduzece" ToRole="Magacin" />
+          <NavigationProperty Name="Mesto" Relationship="Self.FK_PREDUZEC_RELATIONS_MESTO" FromRole="Preduzece" ToRole="Mesto" />
+          <NavigationProperty Name="Poslovna_godina" Relationship="Self.FK_POSLOVNA_RELATIONS_PREDUZEC" FromRole="Preduzece" ToRole="Poslovna_godina" />
+          <NavigationProperty Name="Poslovni_partner" Relationship="Self.FK_POSLOVNI_RELATIONS_PREDUZEC" FromRole="Preduzece" ToRole="Poslovni_partner" />
+          <NavigationProperty Name="Robas" Relationship="Self.FK_ROBA_RELATIONS_PREDUZEC" FromRole="Preduzece" ToRole="Roba" />
+        </EntityType>
+        <EntityType Name="Prijemni_dokument">
+          <Key>
+            <PropertyRef Name="Id_Prijemni_dokument" />
+          </Key>
+          <Property Name="Id_Prijemni_dokument" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Magacin" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Mag_Id_Magacin" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Id_Partner" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Redni_broj_Prijemni_dokument" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Datum_formiranja_Prijemni_dokument" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Datum_knjizenja_Prijemni_dokument" Type="DateTime" Precision="3" />
+          <Property Name="Status_Prijemni_dokument" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Ukupna_vrednost_Prijemni_dokument" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Transportni_troskovi_Prijemni_dokument" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Zavisni_troskovi_Prijemni_dokument" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Magacin" Relationship="Self.FK_PRIJEMNI_MAGACIN_U_MAGACIN" FromRole="Prijemni_dokument" ToRole="Magacin" />
+          <NavigationProperty Name="Magacin1" Relationship="Self.FK_PRIJEMNI_PROMETNI__MAGACIN" FromRole="Prijemni_dokument" ToRole="Magacin" />
+          <NavigationProperty Name="Poslovni_partner" Relationship="Self.FK_PRIJEMNI_POSLOVNI__POSLOVNI" FromRole="Prijemni_dokument" ToRole="Poslovni_partner" />
+          <NavigationProperty Name="Stavka_dokumenta" Relationship="Self.FK_STAVKA_D_RELATIONS_PRIJEMNI" FromRole="Prijemni_dokument" ToRole="Stavka_dokumenta" />
+        </EntityType>
+        <EntityType Name="Roba">
+          <Key>
+            <PropertyRef Name="Id_Roba" />
+          </Key>
+          <Property Name="Id_Roba" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Grupa_roba" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Preduzece" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Jedinica_mere" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Naziv_Roba" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Grupa_roba" Relationship="Self.FK_ROBA_RELATIONS_GRUPA_RO" FromRole="Roba" ToRole="Grupa_roba" />
+          <NavigationProperty Name="Jedinica_mere" Relationship="Self.FK_ROBA_RELATIONS_JEDINICA" FromRole="Roba" ToRole="Jedinica_mere" />
+          <NavigationProperty Name="Preduzece" Relationship="Self.FK_ROBA_RELATIONS_PREDUZEC" FromRole="Roba" ToRole="Preduzece" />
+          <NavigationProperty Name="Robna_kartica" Relationship="Self.FK_ROBNA_KA_RELATIONS_ROBA" FromRole="Roba" ToRole="Robna_kartica" />
+          <NavigationProperty Name="Stavka_dokumenta" Relationship="Self.FK_STAVKA_D_RELATIONS_ROBA" FromRole="Roba" ToRole="Stavka_dokumenta" />
+        </EntityType>
+        <EntityType Name="Robna_kartica">
+          <Key>
+            <PropertyRef Name="Id_Robna_kartica" />
+          </Key>
+          <Property Name="Id_Robna_kartica" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Poslovna_godina" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Magacin" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Roba" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Prosecna_cena_Robna_kartica" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Poc_stanje_kol_Robna_kartica" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Poc_stanje_vrednost_Robna_kartica" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Promet_ulaza_kol_Robna_kartica" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Promet_ulaza_vr_Robna_kartica" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Promet_izlaza_kol_Robna_kartica" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Promet_izlaza_vr_Robna_kartica" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Ukupna_kolicina_Robna_kartica" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Ukupna_vrednost_Robna_kartica" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Analitika_magacinske_kartice" Relationship="Self.FK_ANALITIK_RELATIONS_ROBNA_KA" FromRole="Robna_kartica" ToRole="Analitika_magacinske_kartice" />
+          <NavigationProperty Name="Magacin" Relationship="Self.FK_ROBNA_KA_RELATIONS_MAGACIN" FromRole="Robna_kartica" ToRole="Magacin" />
+          <NavigationProperty Name="Poslovna_godina" Relationship="Self.FK_ROBNA_KA_RELATIONS_POSLOVNA" FromRole="Robna_kartica" ToRole="Poslovna_godina" />
+          <NavigationProperty Name="Roba" Relationship="Self.FK_ROBNA_KA_RELATIONS_ROBA" FromRole="Robna_kartica" ToRole="Roba" />
+        </EntityType>
+        <EntityType Name="Stavka_dokumenta">
+          <Key>
+            <PropertyRef Name="Id_Stavka_dokumenta" />
+          </Key>
+          <Property Name="Id_Stavka_dokumenta" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Roba" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Prijemni_dokument" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Kolicina_Stavka_dokumenta" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Nabavna_vrednost_Stavka_dokumenta" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Procenat_marze_Stavka_dokumenta" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Transportni_trosak_Stavka_dokumenta" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Zavisni_trosak_Stavka_dokumenta" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Kalkulisana_cena_Stavka_dokumenta" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Ukupna_vrednost_Stavka_dokumenta" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Prijemni_dokument" Relationship="Self.FK_STAVKA_D_RELATIONS_PRIJEMNI" FromRole="Stavka_dokumenta" ToRole="Prijemni_dokument" />
+          <NavigationProperty Name="Roba" Relationship="Self.FK_STAVKA_D_RELATIONS_ROBA" FromRole="Stavka_dokumenta" ToRole="Roba" />
+        </EntityType>
+        <EntityType Name="Stopa_PDV_a">
+          <Key>
+            <PropertyRef Name="Id_Stopa_PDV_a" />
+          </Key>
+          <Property Name="Id_Stopa_PDV_a" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_PDV" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Stopa_Stopa_PDV_a" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="Datum_vazenja_Stopa_PDV_a" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="PDV" Relationship="Self.FK_STOPA_PD_PDV_PO_ST_PDV" FromRole="Stopa_PDV_a" ToRole="PDV" />
+        </EntityType>
+        <Association Name="FK_ANALITIK_RELATIONS_ROBNA_KA">
+          <End Role="Robna_kartica" Type="Self.Robna_kartica" Multiplicity="1" />
+          <End Role="Analitika_magacinske_kartice" Type="Self.Analitika_magacinske_kartice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Robna_kartica">
+              <PropertyRef Name="Id_Robna_kartica" />
+            </Principal>
+            <Dependent Role="Analitika_magacinske_kartice">
+              <PropertyRef Name="Id_Robna_kartica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FAKTURA_RELATIONS_POSLOVNA">
+          <End Role="Poslovna_godina" Type="Self.Poslovna_godina" Multiplicity="1" />
+          <End Role="Faktura" Type="Self.Faktura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poslovna_godina">
+              <PropertyRef Name="Id_Poslovna_godina" />
+            </Principal>
+            <Dependent Role="Faktura">
+              <PropertyRef Name="Id_Poslovna_godina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FAKTURA_RELATIONS_POSLOVNI">
+          <End Role="Poslovni_partner" Type="Self.Poslovni_partner" Multiplicity="1" />
+          <End Role="Faktura" Type="Self.Faktura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poslovni_partner">
+              <PropertyRef Name="Id_Partner" />
+            </Principal>
+            <Dependent Role="Faktura">
+              <PropertyRef Name="Id_Partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GRUPA_RO_PDV_GRUPE_PDV">
+          <End Role="PDV" Type="Self.PDV" Multiplicity="1" />
+          <End Role="Grupa_roba" Type="Self.Grupa_roba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PDV">
+              <PropertyRef Name="Id_PDV" />
+            </Principal>
+            <Dependent Role="Grupa_roba">
+              <PropertyRef Name="Id_PDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GRUPA_RO_RELATIONS_PREDUZEC">
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="1" />
+          <End Role="Grupa_roba" Type="Self.Grupa_roba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preduzece">
+              <PropertyRef Name="Id_Preduzece" />
+            </Principal>
+            <Dependent Role="Grupa_roba">
+              <PropertyRef Name="Id_Preduzece" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROBA_RELATIONS_GRUPA_RO">
+          <End Role="Grupa_roba" Type="Self.Grupa_roba" Multiplicity="1" />
+          <End Role="Roba" Type="Self.Roba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grupa_roba">
+              <PropertyRef Name="Id_Grupa_roba" />
+            </Principal>
+            <Dependent Role="Roba">
+              <PropertyRef Name="Id_Grupa_roba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROBA_RELATIONS_JEDINICA">
+          <End Role="Jedinica_mere" Type="Self.Jedinica_mere" Multiplicity="1" />
+          <End Role="Roba" Type="Self.Roba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jedinica_mere">
+              <PropertyRef Name="Id_Jedinica_mere" />
+            </Principal>
+            <Dependent Role="Roba">
+              <PropertyRef Name="Id_Jedinica_mere" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MAGACIN_RELATIONS_MESTO">
+          <End Role="Mesto" Type="Self.Mesto" Multiplicity="1" />
+          <End Role="Magacin" Type="Self.Magacin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Magacin">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MAGACIN_RELATIONS_PREDUZEC">
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="0..1" />
+          <End Role="Magacin" Type="Self.Magacin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preduzece">
+              <PropertyRef Name="Id_Preduzece" />
+            </Principal>
+            <Dependent Role="Magacin">
+              <PropertyRef Name="Id_Preduzece" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJEMNI_MAGACIN_U_MAGACIN">
+          <End Role="Magacin" Type="Self.Magacin" Multiplicity="0..1" />
+          <End Role="Prijemni_dokument" Type="Self.Prijemni_dokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magacin">
+              <PropertyRef Name="Id_Magacin" />
+            </Principal>
+            <Dependent Role="Prijemni_dokument">
+              <PropertyRef Name="Mag_Id_Magacin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJEMNI_PROMETNI__MAGACIN">
+          <End Role="Magacin" Type="Self.Magacin" Multiplicity="1" />
+          <End Role="Prijemni_dokument" Type="Self.Prijemni_dokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magacin">
+              <PropertyRef Name="Id_Magacin" />
+            </Principal>
+            <Dependent Role="Prijemni_dokument">
+              <PropertyRef Name="Id_Magacin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROBNA_KA_RELATIONS_MAGACIN">
+          <End Role="Magacin" Type="Self.Magacin" Multiplicity="1" />
+          <End Role="Robna_kartica" Type="Self.Robna_kartica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Magacin">
+              <PropertyRef Name="Id_Magacin" />
+            </Principal>
+            <Dependent Role="Robna_kartica">
+              <PropertyRef Name="Id_Magacin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POSLOVNI_RELATIONS_MESTO">
+          <End Role="Mesto" Type="Self.Mesto" Multiplicity="1" />
+          <End Role="Poslovni_partner" Type="Self.Poslovni_partner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Poslovni_partner">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PREDUZEC_RELATIONS_MESTO">
+          <End Role="Mesto" Type="Self.Mesto" Multiplicity="1" />
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mesto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Preduzece">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STOPA_PD_PDV_PO_ST_PDV">
+          <End Role="PDV" Type="Self.PDV" Multiplicity="1" />
+          <End Role="Stopa_PDV_a" Type="Self.Stopa_PDV_a" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PDV">
+              <PropertyRef Name="Id_PDV" />
+            </Principal>
+            <Dependent Role="Stopa_PDV_a">
+              <PropertyRef Name="Id_PDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POSLOVNA_RELATIONS_PREDUZEC">
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="1" />
+          <End Role="Poslovna_godina" Type="Self.Poslovna_godina" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preduzece">
+              <PropertyRef Name="Id_Preduzece" />
+            </Principal>
+            <Dependent Role="Poslovna_godina">
+              <PropertyRef Name="Id_Preduzece" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROBNA_KA_RELATIONS_POSLOVNA">
+          <End Role="Poslovna_godina" Type="Self.Poslovna_godina" Multiplicity="1" />
+          <End Role="Robna_kartica" Type="Self.Robna_kartica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poslovna_godina">
+              <PropertyRef Name="Id_Poslovna_godina" />
+            </Principal>
+            <Dependent Role="Robna_kartica">
+              <PropertyRef Name="Id_Poslovna_godina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_POSLOVNI_RELATIONS_PREDUZEC">
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="1" />
+          <End Role="Poslovni_partner" Type="Self.Poslovni_partner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preduzece">
+              <PropertyRef Name="Id_Preduzece" />
+            </Principal>
+            <Dependent Role="Poslovni_partner">
+              <PropertyRef Name="Id_Preduzece" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRIJEMNI_POSLOVNI__POSLOVNI">
+          <End Role="Poslovni_partner" Type="Self.Poslovni_partner" Multiplicity="0..1" />
+          <End Role="Prijemni_dokument" Type="Self.Prijemni_dokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poslovni_partner">
+              <PropertyRef Name="Id_Partner" />
+            </Principal>
+            <Dependent Role="Prijemni_dokument">
+              <PropertyRef Name="Id_Partner" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROBA_RELATIONS_PREDUZEC">
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="1" />
+          <End Role="Roba" Type="Self.Roba" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Preduzece">
+              <PropertyRef Name="Id_Preduzece" />
+            </Principal>
+            <Dependent Role="Roba">
+              <PropertyRef Name="Id_Preduzece" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STAVKA_D_RELATIONS_PRIJEMNI">
+          <End Role="Prijemni_dokument" Type="Self.Prijemni_dokument" Multiplicity="1" />
+          <End Role="Stavka_dokumenta" Type="Self.Stavka_dokumenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prijemni_dokument">
+              <PropertyRef Name="Id_Prijemni_dokument" />
+            </Principal>
+            <Dependent Role="Stavka_dokumenta">
+              <PropertyRef Name="Id_Prijemni_dokument" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ROBNA_KA_RELATIONS_ROBA">
+          <End Role="Roba" Type="Self.Roba" Multiplicity="1" />
+          <End Role="Robna_kartica" Type="Self.Robna_kartica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roba">
+              <PropertyRef Name="Id_Roba" />
+            </Principal>
+            <Dependent Role="Robna_kartica">
+              <PropertyRef Name="Id_Roba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STAVKA_D_RELATIONS_ROBA">
+          <End Role="Roba" Type="Self.Roba" Multiplicity="1" />
+          <End Role="Stavka_dokumenta" Type="Self.Stavka_dokumenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roba">
+              <PropertyRef Name="Id_Roba" />
+            </Principal>
+            <Dependent Role="Stavka_dokumenta">
+              <PropertyRef Name="Id_Roba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PoslovnaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Analitika_magacinske_kartice" EntityType="Self.Analitika_magacinske_kartice" />
+          <EntitySet Name="Fakturas" EntityType="Self.Faktura" />
+          <EntitySet Name="Grupa_roba" EntityType="Self.Grupa_roba" />
+          <EntitySet Name="Jedinica_mere" EntityType="Self.Jedinica_mere" />
+          <EntitySet Name="Magacins" EntityType="Self.Magacin" />
+          <EntitySet Name="Mestoes" EntityType="Self.Mesto" />
+          <EntitySet Name="PDVs" EntityType="Self.PDV" />
+          <EntitySet Name="Poslovna_godina" EntityType="Self.Poslovna_godina" />
+          <EntitySet Name="Poslovni_partner" EntityType="Self.Poslovni_partner" />
+          <EntitySet Name="Preduzeces" EntityType="Self.Preduzece" />
+          <EntitySet Name="Prijemni_dokument" EntityType="Self.Prijemni_dokument" />
+          <EntitySet Name="Robas" EntityType="Self.Roba" />
+          <EntitySet Name="Robna_kartica" EntityType="Self.Robna_kartica" />
+          <EntitySet Name="Stavka_dokumenta" EntityType="Self.Stavka_dokumenta" />
+          <EntitySet Name="Stopa_PDV_a" EntityType="Self.Stopa_PDV_a" />
+          <AssociationSet Name="FK_ANALITIK_RELATIONS_ROBNA_KA" Association="Self.FK_ANALITIK_RELATIONS_ROBNA_KA">
+            <End Role="Robna_kartica" EntitySet="Robna_kartica" />
+            <End Role="Analitika_magacinske_kartice" EntitySet="Analitika_magacinske_kartice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FAKTURA_RELATIONS_POSLOVNA" Association="Self.FK_FAKTURA_RELATIONS_POSLOVNA">
+            <End Role="Poslovna_godina" EntitySet="Poslovna_godina" />
+            <End Role="Faktura" EntitySet="Fakturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FAKTURA_RELATIONS_POSLOVNI" Association="Self.FK_FAKTURA_RELATIONS_POSLOVNI">
+            <End Role="Poslovni_partner" EntitySet="Poslovni_partner" />
+            <End Role="Faktura" EntitySet="Fakturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GRUPA_RO_PDV_GRUPE_PDV" Association="Self.FK_GRUPA_RO_PDV_GRUPE_PDV">
+            <End Role="PDV" EntitySet="PDVs" />
+            <End Role="Grupa_roba" EntitySet="Grupa_roba" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GRUPA_RO_RELATIONS_PREDUZEC" Association="Self.FK_GRUPA_RO_RELATIONS_PREDUZEC">
+            <End Role="Preduzece" EntitySet="Preduzeces" />
+            <End Role="Grupa_roba" EntitySet="Grupa_roba" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROBA_RELATIONS_GRUPA_RO" Association="Self.FK_ROBA_RELATIONS_GRUPA_RO">
+            <End Role="Grupa_roba" EntitySet="Grupa_roba" />
+            <End Role="Roba" EntitySet="Robas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROBA_RELATIONS_JEDINICA" Association="Self.FK_ROBA_RELATIONS_JEDINICA">
+            <End Role="Jedinica_mere" EntitySet="Jedinica_mere" />
+            <End Role="Roba" EntitySet="Robas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MAGACIN_RELATIONS_MESTO" Association="Self.FK_MAGACIN_RELATIONS_MESTO">
+            <End Role="Mesto" EntitySet="Mestoes" />
+            <End Role="Magacin" EntitySet="Magacins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MAGACIN_RELATIONS_PREDUZEC" Association="Self.FK_MAGACIN_RELATIONS_PREDUZEC">
+            <End Role="Preduzece" EntitySet="Preduzeces" />
+            <End Role="Magacin" EntitySet="Magacins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJEMNI_MAGACIN_U_MAGACIN" Association="Self.FK_PRIJEMNI_MAGACIN_U_MAGACIN">
+            <End Role="Magacin" EntitySet="Magacins" />
+            <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJEMNI_PROMETNI__MAGACIN" Association="Self.FK_PRIJEMNI_PROMETNI__MAGACIN">
+            <End Role="Magacin" EntitySet="Magacins" />
+            <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROBNA_KA_RELATIONS_MAGACIN" Association="Self.FK_ROBNA_KA_RELATIONS_MAGACIN">
+            <End Role="Magacin" EntitySet="Magacins" />
+            <End Role="Robna_kartica" EntitySet="Robna_kartica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POSLOVNI_RELATIONS_MESTO" Association="Self.FK_POSLOVNI_RELATIONS_MESTO">
+            <End Role="Mesto" EntitySet="Mestoes" />
+            <End Role="Poslovni_partner" EntitySet="Poslovni_partner" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PREDUZEC_RELATIONS_MESTO" Association="Self.FK_PREDUZEC_RELATIONS_MESTO">
+            <End Role="Mesto" EntitySet="Mestoes" />
+            <End Role="Preduzece" EntitySet="Preduzeces" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STOPA_PD_PDV_PO_ST_PDV" Association="Self.FK_STOPA_PD_PDV_PO_ST_PDV">
+            <End Role="PDV" EntitySet="PDVs" />
+            <End Role="Stopa_PDV_a" EntitySet="Stopa_PDV_a" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POSLOVNA_RELATIONS_PREDUZEC" Association="Self.FK_POSLOVNA_RELATIONS_PREDUZEC">
+            <End Role="Preduzece" EntitySet="Preduzeces" />
+            <End Role="Poslovna_godina" EntitySet="Poslovna_godina" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROBNA_KA_RELATIONS_POSLOVNA" Association="Self.FK_ROBNA_KA_RELATIONS_POSLOVNA">
+            <End Role="Poslovna_godina" EntitySet="Poslovna_godina" />
+            <End Role="Robna_kartica" EntitySet="Robna_kartica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_POSLOVNI_RELATIONS_PREDUZEC" Association="Self.FK_POSLOVNI_RELATIONS_PREDUZEC">
+            <End Role="Preduzece" EntitySet="Preduzeces" />
+            <End Role="Poslovni_partner" EntitySet="Poslovni_partner" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRIJEMNI_POSLOVNI__POSLOVNI" Association="Self.FK_PRIJEMNI_POSLOVNI__POSLOVNI">
+            <End Role="Poslovni_partner" EntitySet="Poslovni_partner" />
+            <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROBA_RELATIONS_PREDUZEC" Association="Self.FK_ROBA_RELATIONS_PREDUZEC">
+            <End Role="Preduzece" EntitySet="Preduzeces" />
+            <End Role="Roba" EntitySet="Robas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STAVKA_D_RELATIONS_PRIJEMNI" Association="Self.FK_STAVKA_D_RELATIONS_PRIJEMNI">
+            <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
+            <End Role="Stavka_dokumenta" EntitySet="Stavka_dokumenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ROBNA_KA_RELATIONS_ROBA" Association="Self.FK_ROBNA_KA_RELATIONS_ROBA">
+            <End Role="Roba" EntitySet="Robas" />
+            <End Role="Robna_kartica" EntitySet="Robna_kartica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STAVKA_D_RELATIONS_ROBA" Association="Self.FK_STAVKA_D_RELATIONS_ROBA">
+            <End Role="Roba" EntitySet="Robas" />
+            <End Role="Stavka_dokumenta" EntitySet="Stavka_dokumenta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PoslovnaModelStoreContainer" CdmEntityContainer="PoslovnaEntities">
+          <EntitySetMapping Name="Analitika_magacinske_kartice">
+            <EntityTypeMapping TypeName="PoslovnaModel.Analitika_magacinske_kartice">
+              <MappingFragment StoreEntitySet="Analitika_magacinske_kartice">
+                <ScalarProperty Name="Id_Analitika_magacinske_kartice" ColumnName="Id_Analitika_magacinske_kartice" />
+                <ScalarProperty Name="Id_Robna_kartica" ColumnName="Id_Robna_kartica" />
+                <ScalarProperty Name="Redni_broj_Analitika_magacinske_kartice" ColumnName="Redni_broj_Analitika_magacinske_kartice" />
+                <ScalarProperty Name="Vrsta_prometa_Analitika_magacinske_kartice" ColumnName="Vrsta_prometa_Analitika_magacinske_kartice" />
+                <ScalarProperty Name="Smer_Analitika_magacinske_kartice" ColumnName="Smer_Analitika_magacinske_kartice" />
+                <ScalarProperty Name="Kolicina_Analitika_magacinske_kartice" ColumnName="Kolicina_Analitika_magacinske_kartice" />
+                <ScalarProperty Name="Cena_Analitika_magacinske_kartice" ColumnName="Cena_Analitika_magacinske_kartice" />
+                <ScalarProperty Name="Vrednost_Analitika_magacinske_kartice" ColumnName="Vrednost_Analitika_magacinske_kartice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fakturas">
+            <EntityTypeMapping TypeName="PoslovnaModel.Faktura">
+              <MappingFragment StoreEntitySet="Faktura">
+                <ScalarProperty Name="Id_Faktura" ColumnName="Id_Faktura" />
+                <ScalarProperty Name="Id_Poslovna_godina" ColumnName="Id_Poslovna_godina" />
+                <ScalarProperty Name="Id_Partner" ColumnName="Id_Partner" />
+                <ScalarProperty Name="Broj_fakture_Faktura" ColumnName="Broj_fakture_Faktura" />
+                <ScalarProperty Name="Datum_fakture_Faktura" ColumnName="Datum_fakture_Faktura" />
+                <ScalarProperty Name="Datum_valute_Faktura" ColumnName="Datum_valute_Faktura" />
+                <ScalarProperty Name="Ukupan_rabat_Faktura" ColumnName="Ukupan_rabat_Faktura" />
+                <ScalarProperty Name="Ukupan_iznos_bez_PDV_a_Faktura" ColumnName="Ukupan_iznos_bez_PDV_a_Faktura" />
+                <ScalarProperty Name="Ukupan_PDV_Faktura" ColumnName="Ukupan_PDV_Faktura" />
+                <ScalarProperty Name="Ukupno_za_placanje_Faktura" ColumnName="Ukupno_za_placanje_Faktura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grupa_roba">
+            <EntityTypeMapping TypeName="PoslovnaModel.Grupa_roba">
+              <MappingFragment StoreEntitySet="Grupa_roba">
+                <ScalarProperty Name="Id_Grupa_roba" ColumnName="Id_Grupa_roba" />
+                <ScalarProperty Name="Id_PDV" ColumnName="Id_PDV" />
+                <ScalarProperty Name="Id_Preduzece" ColumnName="Id_Preduzece" />
+                <ScalarProperty Name="Naziv_Grupa_roba" ColumnName="Naziv_Grupa_roba" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jedinica_mere">
+            <EntityTypeMapping TypeName="PoslovnaModel.Jedinica_mere">
+              <MappingFragment StoreEntitySet="Jedinica_mere">
+                <ScalarProperty Name="Id_Jedinica_mere" ColumnName="Id_Jedinica_mere" />
+                <ScalarProperty Name="Naziv_Jedinica_mere" ColumnName="Naziv_Jedinica_mere" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Magacins">
+            <EntityTypeMapping TypeName="PoslovnaModel.Magacin">
+              <MappingFragment StoreEntitySet="Magacin">
+                <ScalarProperty Name="Id_Magacin" ColumnName="Id_Magacin" />
+                <ScalarProperty Name="Id_Preduzece" ColumnName="Id_Preduzece" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Naziv_Magacin" ColumnName="Naziv_Magacin" />
+                <ScalarProperty Name="Adresa_Magacin" ColumnName="Adresa_Magacin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mestoes">
+            <EntityTypeMapping TypeName="PoslovnaModel.Mesto">
+              <MappingFragment StoreEntitySet="Mesto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Naziv_Mesto" ColumnName="Naziv_Mesto" />
+                <ScalarProperty Name="Postansk__broj_Mesto" ColumnName="Postansk_ broj_Mesto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PDVs">
+            <EntityTypeMapping TypeName="PoslovnaModel.PDV">
+              <MappingFragment StoreEntitySet="PDV">
+                <ScalarProperty Name="Id_PDV" ColumnName="Id_PDV" />
+                <ScalarProperty Name="Naziv_PDV" ColumnName="Naziv_PDV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Poslovna_godina">
+            <EntityTypeMapping TypeName="PoslovnaModel.Poslovna_godina">
+              <MappingFragment StoreEntitySet="Poslovna_godina">
+                <ScalarProperty Name="Id_Poslovna_godina" ColumnName="Id_Poslovna_godina" />
+                <ScalarProperty Name="Id_Preduzece" ColumnName="Id_Preduzece" />
+                <ScalarProperty Name="Godina_Poslovna_godina" ColumnName="Godina_Poslovna_godina" />
+                <ScalarProperty Name="Zakljucena_Poslovna_godina" ColumnName="Zakljucena_Poslovna_godina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Poslovni_partner">
+            <EntityTypeMapping TypeName="PoslovnaModel.Poslovni_partner">
+              <MappingFragment StoreEntitySet="Poslovni_partner">
+                <ScalarProperty Name="Id_Partner" ColumnName="Id_Partner" />
+                <ScalarProperty Name="Id_Preduzece" ColumnName="Id_Preduzece" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Tip_Partner" ColumnName="Tip_Partner" />
+                <ScalarProperty Name="Naziv_Partner" ColumnName="Naziv_Partner" />
+                <ScalarProperty Name="PIB_Partner" ColumnName="PIB_Partner" />
+                <ScalarProperty Name="Maticni_broj_Partner" ColumnName="Maticni_broj_Partner" />
+                <ScalarProperty Name="Adresa_Partner" ColumnName="Adresa_Partner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Preduzeces">
+            <EntityTypeMapping TypeName="PoslovnaModel.Preduzece">
+              <MappingFragment StoreEntitySet="Preduzece">
+                <ScalarProperty Name="Id_Preduzece" ColumnName="Id_Preduzece" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Naziv_Preduzece" ColumnName="Naziv_Preduzece" />
+                <ScalarProperty Name="Maticni_broj_Preduzece" ColumnName="Maticni_broj_Preduzece" />
+                <ScalarProperty Name="PIB_Preduzece" ColumnName="PIB_Preduzece" />
+                <ScalarProperty Name="Adresa_Preduzece" ColumnName="Adresa_Preduzece" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prijemni_dokument">
+            <EntityTypeMapping TypeName="PoslovnaModel.Prijemni_dokument">
+              <MappingFragment StoreEntitySet="Prijemni_dokument">
+                <ScalarProperty Name="Id_Prijemni_dokument" ColumnName="Id_Prijemni_dokument" />
+                <ScalarProperty Name="Id_Magacin" ColumnName="Id_Magacin" />
+                <ScalarProperty Name="Mag_Id_Magacin" ColumnName="Mag_Id_Magacin" />
+                <ScalarProperty Name="Id_Partner" ColumnName="Id_Partner" />
+                <ScalarProperty Name="Redni_broj_Prijemni_dokument" ColumnName="Redni_broj_Prijemni_dokument" />
+                <ScalarProperty Name="Datum_formiranja_Prijemni_dokument" ColumnName="Datum_formiranja_Prijemni_dokument" />
+                <ScalarProperty Name="Datum_knjizenja_Prijemni_dokument" ColumnName="Datum_knjizenja_Prijemni_dokument" />
+                <ScalarProperty Name="Status_Prijemni_dokument" ColumnName="Status_Prijemni_dokument" />
+                <ScalarProperty Name="Ukupna_vrednost_Prijemni_dokument" ColumnName="Ukupna_vrednost_Prijemni_dokument" />
+                <ScalarProperty Name="Transportni_troskovi_Prijemni_dokument" ColumnName="Transportni_troskovi_Prijemni_dokument" />
+                <ScalarProperty Name="Zavisni_troskovi_Prijemni_dokument" ColumnName="Zavisni_troskovi_Prijemni_dokument" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Robas">
+            <EntityTypeMapping TypeName="PoslovnaModel.Roba">
+              <MappingFragment StoreEntitySet="Roba">
+                <ScalarProperty Name="Id_Roba" ColumnName="Id_Roba" />
+                <ScalarProperty Name="Id_Grupa_roba" ColumnName="Id_Grupa_roba" />
+                <ScalarProperty Name="Id_Preduzece" ColumnName="Id_Preduzece" />
+                <ScalarProperty Name="Id_Jedinica_mere" ColumnName="Id_Jedinica_mere" />
+                <ScalarProperty Name="Naziv_Roba" ColumnName="Naziv_Roba" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Robna_kartica">
+            <EntityTypeMapping TypeName="PoslovnaModel.Robna_kartica">
+              <MappingFragment StoreEntitySet="Robna_kartica">
+                <ScalarProperty Name="Id_Robna_kartica" ColumnName="Id_Robna_kartica" />
+                <ScalarProperty Name="Id_Poslovna_godina" ColumnName="Id_Poslovna_godina" />
+                <ScalarProperty Name="Id_Magacin" ColumnName="Id_Magacin" />
+                <ScalarProperty Name="Id_Roba" ColumnName="Id_Roba" />
+                <ScalarProperty Name="Prosecna_cena_Robna_kartica" ColumnName="Prosecna_cena_Robna_kartica" />
+                <ScalarProperty Name="Poc_stanje_kol_Robna_kartica" ColumnName="Poc_stanje_kol_Robna_kartica" />
+                <ScalarProperty Name="Poc_stanje_vrednost_Robna_kartica" ColumnName="Poc_stanje_vrednost_Robna_kartica" />
+                <ScalarProperty Name="Promet_ulaza_kol_Robna_kartica" ColumnName="Promet_ulaza_kol_Robna_kartica" />
+                <ScalarProperty Name="Promet_ulaza_vr_Robna_kartica" ColumnName="Promet_ulaza_vr_Robna_kartica" />
+                <ScalarProperty Name="Promet_izlaza_kol_Robna_kartica" ColumnName="Promet_izlaza_kol_Robna_kartica" />
+                <ScalarProperty Name="Promet_izlaza_vr_Robna_kartica" ColumnName="Promet_izlaza_vr_Robna_kartica" />
+                <ScalarProperty Name="Ukupna_kolicina_Robna_kartica" ColumnName="Ukupna_kolicina_Robna_kartica" />
+                <ScalarProperty Name="Ukupna_vrednost_Robna_kartica" ColumnName="Ukupna_vrednost_Robna_kartica" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stavka_dokumenta">
+            <EntityTypeMapping TypeName="PoslovnaModel.Stavka_dokumenta">
+              <MappingFragment StoreEntitySet="Stavka_dokumenta">
+                <ScalarProperty Name="Id_Stavka_dokumenta" ColumnName="Id_Stavka_dokumenta" />
+                <ScalarProperty Name="Id_Roba" ColumnName="Id_Roba" />
+                <ScalarProperty Name="Id_Prijemni_dokument" ColumnName="Id_Prijemni_dokument" />
+                <ScalarProperty Name="Kolicina_Stavka_dokumenta" ColumnName="Kolicina_Stavka_dokumenta" />
+                <ScalarProperty Name="Nabavna_vrednost_Stavka_dokumenta" ColumnName="Nabavna_vrednost_Stavka_dokumenta" />
+                <ScalarProperty Name="Procenat_marze_Stavka_dokumenta" ColumnName="Procenat_marze_Stavka_dokumenta" />
+                <ScalarProperty Name="Transportni_trosak_Stavka_dokumenta" ColumnName="Transportni_trosak_Stavka_dokumenta" />
+                <ScalarProperty Name="Zavisni_trosak_Stavka_dokumenta" ColumnName="Zavisni_trosak_Stavka_dokumenta" />
+                <ScalarProperty Name="Kalkulisana_cena_Stavka_dokumenta" ColumnName="Kalkulisana_cena_Stavka_dokumenta" />
+                <ScalarProperty Name="Ukupna_vrednost_Stavka_dokumenta" ColumnName="Ukupna_vrednost_Stavka_dokumenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stopa_PDV_a">
+            <EntityTypeMapping TypeName="PoslovnaModel.Stopa_PDV_a">
+              <MappingFragment StoreEntitySet="Stopa_PDV_a">
+                <ScalarProperty Name="Id_Stopa_PDV_a" ColumnName="Id_Stopa_PDV_a" />
+                <ScalarProperty Name="Id_PDV" ColumnName="Id_PDV" />
+                <ScalarProperty Name="Stopa_Stopa_PDV_a" ColumnName="Stopa_Stopa_PDV_a" />
+                <ScalarProperty Name="Datum_vazenja_Stopa_PDV_a" ColumnName="Datum_vazenja_Stopa_PDV_a" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
