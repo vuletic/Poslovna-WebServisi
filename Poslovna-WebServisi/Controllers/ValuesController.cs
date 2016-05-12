@@ -18,6 +18,12 @@ namespace WebAPI.Controllers
         // GET api/values/5
         public int Get(int id)
         {
+            /*using (var db = new PoslovnaEntities())
+            {
+                var blog = new PDV { Id_PDV = 4, Naziv_PDV = "fafa" };
+                db.PDVs.Add(blog);
+                db.SaveChanges();
+            } */
             return 15;
         }
 

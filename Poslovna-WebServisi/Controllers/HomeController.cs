@@ -15,10 +15,6 @@ namespace WebAPI.Controllers
             return View();
         }
 
-        public ActionResult App()
-        {
-            return Redirect("/AngularJS/index.html");
-        }
 
     }
 }
