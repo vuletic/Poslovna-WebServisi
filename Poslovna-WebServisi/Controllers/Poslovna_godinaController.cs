@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class Poslovna_godinaController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Poslovna_godina
         public IQueryable<Poslovna_godina> GetPoslovna_godina()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Poslovna_godina.Add(poslovna_godina);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (Poslovna_godinaExists(poslovna_godina.Id_Poslovna_godina))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = poslovna_godina.Id_Poslovna_godina }, poslovna_godina);
         }

@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class Poslovni_partnerController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Poslovni_partner
         public IQueryable<Poslovni_partner> GetPoslovni_partner()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Poslovni_partner.Add(poslovni_partner);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (Poslovni_partnerExists(poslovni_partner.Id_Partner))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = poslovni_partner.Id_Partner }, poslovni_partner);
         }

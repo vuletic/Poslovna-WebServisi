@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class PreduzeceController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Preduzece
         public IQueryable<Preduzece> GetPreduzeces()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Preduzeces.Add(preduzece);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (PreduzeceExists(preduzece.Id_Preduzece))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = preduzece.Id_Preduzece }, preduzece);
         }

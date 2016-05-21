@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class Stopa_PDVaController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Stopa_PDVa
         public IQueryable<Stopa_PDV_a> GetStopa_PDV_a()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Stopa_PDV_a.Add(stopa_PDV_a);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (Stopa_PDV_aExists(stopa_PDV_a.Id_Stopa_PDV_a))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = stopa_PDV_a.Id_Stopa_PDV_a }, stopa_PDV_a);
         }

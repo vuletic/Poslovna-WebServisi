@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class MagacinController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Magacin
         public IQueryable<Magacin> GetMagacins()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Magacins.Add(magacin);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (MagacinExists(magacin.Id_Magacin))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = magacin.Id_Magacin }, magacin);
         }

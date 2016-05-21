@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class Jedinica_mereController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Jedinica_mere
         public IQueryable<Jedinica_mere> GetJedinica_mere()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Jedinica_mere.Add(jedinica_mere);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (Jedinica_mereExists(jedinica_mere.Id_Jedinica_mere))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = jedinica_mere.Id_Jedinica_mere }, jedinica_mere);
         }

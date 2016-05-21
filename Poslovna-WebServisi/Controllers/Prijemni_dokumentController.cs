@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class Prijemni_dokumentController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Prijemni_dokument
         public IQueryable<Prijemni_dokument> GetPrijemni_dokument()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Prijemni_dokument.Add(prijemni_dokument);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (Prijemni_dokumentExists(prijemni_dokument.Id_Prijemni_dokument))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = prijemni_dokument.Id_Prijemni_dokument }, prijemni_dokument);
         }

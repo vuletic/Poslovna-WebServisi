@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class RobaController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Roba
         public IQueryable<Roba> GetRobas()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Robas.Add(roba);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (RobaExists(roba.Id_Roba))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = roba.Id_Roba }, roba);
         }

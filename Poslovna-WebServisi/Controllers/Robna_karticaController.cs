@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class Robna_karticaController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Robna_kartica
         public IQueryable<Robna_kartica> GetRobna_kartica()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Robna_kartica.Add(robna_kartica);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (Robna_karticaExists(robna_kartica.Id_Robna_kartica))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = robna_kartica.Id_Robna_kartica }, robna_kartica);
         }

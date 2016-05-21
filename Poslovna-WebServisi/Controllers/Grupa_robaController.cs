@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class Grupa_robaController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Grupa_roba
         public IQueryable<Grupa_roba> GetGrupa_roba()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Grupa_roba.Add(grupa_roba);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (Grupa_robaExists(grupa_roba.Id_Grupa_roba))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = grupa_roba.Id_Grupa_roba }, grupa_roba);
         }

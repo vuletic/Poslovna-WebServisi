@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class Stavka_dokumentaController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Stavka_dokumenta
         public IQueryable<Stavka_dokumenta> GetStavka_dokumenta()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Stavka_dokumenta.Add(stavka_dokumenta);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (Stavka_dokumentaExists(stavka_dokumenta.Id_Stavka_dokumenta))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = stavka_dokumenta.Id_Stavka_dokumenta }, stavka_dokumenta);
         }

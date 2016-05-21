@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class Analitika_magacinske_karticeController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Analitika_magacinske_kartice
         public IQueryable<Analitika_magacinske_kartice> GetAnalitika_magacinske_kartice()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Analitika_magacinske_kartice.Add(analitika_magacinske_kartice);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (Analitika_magacinske_karticeExists(analitika_magacinske_kartice.Id_Analitika_magacinske_kartice))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = analitika_magacinske_kartice.Id_Analitika_magacinske_kartice }, analitika_magacinske_kartice);
         }

@@ -15,11 +15,12 @@ namespace WebAPI.Controllers
 {
     public class MestoController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Mesto
         public IQueryable<Mesto> GetMestoes()
-        {
+        {   
+
             return db.Mestoes;
         }
 
@@ -81,22 +82,7 @@ namespace WebAPI.Controllers
             }
 
             db.Mestoes.Add(mesto);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (MestoExists(mesto.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = mesto.Id }, mesto);
         }

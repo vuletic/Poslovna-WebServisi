@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class FakturaController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/Faktura
         public IQueryable<Faktura> GetFakturas()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.Fakturas.Add(faktura);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (FakturaExists(faktura.Id_Faktura))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = faktura.Id_Faktura }, faktura);
         }

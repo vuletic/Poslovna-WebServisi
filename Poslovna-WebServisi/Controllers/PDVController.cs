@@ -15,7 +15,7 @@ namespace WebAPI.Controllers
 {
     public class PDVController : ApiController
     {
-        private PoslovnaEntities db = new PoslovnaEntities();
+        private Poslovna db = new Poslovna();
 
         // GET: api/PDV
         public IQueryable<PDV> GetPDVs()
@@ -81,22 +81,7 @@ namespace WebAPI.Controllers
             }
 
             db.PDVs.Add(pDV);
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (PDVExists(pDV.Id_PDV))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = pDV.Id_PDV }, pDV);
         }
