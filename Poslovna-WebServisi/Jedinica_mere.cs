@@ -22,6 +22,7 @@ namespace WebAPI
     
         public decimal Id_Jedinica_mere { get; set; }
         public string Naziv_Jedinica_mere { get; set; }
+        public string Oznaka_Jedinica_mere { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Roba> Robas { get; set; }

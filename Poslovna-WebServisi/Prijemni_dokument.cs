@@ -25,15 +25,18 @@ namespace WebAPI
         public Nullable<decimal> Mag_Id_Magacin { get; set; }
         public Nullable<decimal> Id_Partner { get; set; }
         public decimal Redni_broj_Prijemni_dokument { get; set; }
+        public decimal Id_Poslovna_godina { get; set; }
         public System.DateTime Datum_formiranja_Prijemni_dokument { get; set; }
         public Nullable<System.DateTime> Datum_knjizenja_Prijemni_dokument { get; set; }
         public string Status_Prijemni_dokument { get; set; }
-        public decimal Ukupna_vrednost_Prijemni_dokument { get; set; }
+        public Nullable<decimal> Ukupna_nabavna_vrednost_Prijemni_dokument { get; set; }
         public Nullable<decimal> Transportni_troskovi_Prijemni_dokument { get; set; }
         public Nullable<decimal> Zavisni_troskovi_Prijemni_dokument { get; set; }
+        public Nullable<decimal> Ukupna_vrednost_Prijemni_dokument { get; set; }
     
         public virtual Magacin Magacin { get; set; }
         public virtual Magacin Magacin1 { get; set; }
+        public virtual Poslovna_godina Poslovna_godina { get; set; }
         public virtual Poslovni_partner Poslovni_partner { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Stavka_dokumenta> Stavka_dokumenta { get; set; }

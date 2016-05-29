@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Eugene\Desktop\Nenad IV\II semestar\PWS - backend\Poslovna-WebServisi\Poslovna-WebServisi\PoslovnaEntities.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Eugene\Desktop\nnd IV\II\PWS  back\Poslovna-WebServisi\Poslovna-WebServisi\PoslovnaModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

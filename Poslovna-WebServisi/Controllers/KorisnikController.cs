@@ -9,45 +9,45 @@ using System.Web.Http.OData;
 
 namespace WebAPI.Controllers
 {
-    public class Grupa_robaController : ApiController
+    public class KorisnikController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
 
-        // GET: api/Grupa_roba
+        // GET: api/Korisnik
         [EnableQuery]
-        public IQueryable<Grupa_roba> GetGrupa_roba()
+        public IQueryable<Korisnik> GetKorisniks()
         {
-            return db.Grupa_roba;
+            return db.Korisniks;
         }
 
-        // GET: api/Grupa_roba/5
-        [ResponseType(typeof(Grupa_roba))]
-        public async Task<IHttpActionResult> GetGrupa_roba(decimal id)
+        // GET: api/Korisnik/5
+        [ResponseType(typeof(Korisnik))]
+        public async Task<IHttpActionResult> GetKorisnik(decimal id)
         {
-            Grupa_roba grupa_roba = await db.Grupa_roba.FindAsync(id);
-            if (grupa_roba == null)
+            Korisnik korisnik = await db.Korisniks.FindAsync(id);
+            if (korisnik == null)
             {
                 return NotFound();
             }
 
-            return Ok(grupa_roba);
+            return Ok(korisnik);
         }
 
-        // PUT: api/Grupa_roba/5
+        // PUT: api/Korisnik/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutGrupa_roba(decimal id, Grupa_roba grupa_roba)
+        public async Task<IHttpActionResult> PutKorisnik(decimal id, Korisnik korisnik)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != grupa_roba.Id_Grupa_roba)
+            if (id != korisnik.Id_Korisnik)
             {
                 return BadRequest();
             }
 
-            db.Entry(grupa_roba).State = EntityState.Modified;
+            db.Entry(korisnik).State = EntityState.Modified;
 
             try
             {
@@ -55,7 +55,7 @@ namespace WebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!Grupa_robaExists(id))
+                if (!KorisnikExists(id))
                 {
                     return NotFound();
                 }
@@ -68,35 +68,35 @@ namespace WebAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Grupa_roba
-        [ResponseType(typeof(Grupa_roba))]
-        public async Task<IHttpActionResult> PostGrupa_roba(Grupa_roba grupa_roba)
+        // POST: api/Korisnik
+        [ResponseType(typeof(Korisnik))]
+        public async Task<IHttpActionResult> PostKorisnik(Korisnik korisnik)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Grupa_roba.Add(grupa_roba);
+            db.Korisniks.Add(korisnik);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = grupa_roba.Id_Grupa_roba }, grupa_roba);
+            return CreatedAtRoute("DefaultApi", new { id = korisnik.Id_Korisnik }, korisnik);
         }
 
-        // DELETE: api/Grupa_roba/5
-        [ResponseType(typeof(Grupa_roba))]
-        public async Task<IHttpActionResult> DeleteGrupa_roba(decimal id)
+        // DELETE: api/Korisnik/5
+        [ResponseType(typeof(Korisnik))]
+        public async Task<IHttpActionResult> DeleteKorisnik(decimal id)
         {
-            Grupa_roba grupa_roba = await db.Grupa_roba.FindAsync(id);
-            if (grupa_roba == null)
+            Korisnik korisnik = await db.Korisniks.FindAsync(id);
+            if (korisnik == null)
             {
                 return NotFound();
             }
 
-            db.Grupa_roba.Remove(grupa_roba);
+            db.Korisniks.Remove(korisnik);
             await db.SaveChangesAsync();
 
-            return Ok(grupa_roba);
+            return Ok(korisnik);
         }
 
         protected override void Dispose(bool disposing)
@@ -108,9 +108,9 @@ namespace WebAPI.Controllers
             base.Dispose(disposing);
         }
 
-        private bool Grupa_robaExists(decimal id)
+        private bool KorisnikExists(decimal id)
         {
-            return db.Grupa_roba.Count(e => e.Id_Grupa_roba == id) > 0;
+            return db.Korisniks.Count(e => e.Id_Korisnik == id) > 0;
         }
     }
 }

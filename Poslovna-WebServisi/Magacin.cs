@@ -23,7 +23,7 @@ namespace WebAPI
         }
     
         public decimal Id_Magacin { get; set; }
-        public Nullable<decimal> Id_Preduzece { get; set; }
+        public decimal Id_Preduzece { get; set; }
         public decimal Id { get; set; }
         public string Naziv_Magacin { get; set; }
         public string Adresa_Magacin { get; set; }

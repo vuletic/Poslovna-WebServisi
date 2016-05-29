@@ -41,13 +41,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -61,6 +70,10 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Security" />
+    <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.6.0\lib\net40\System.Spatial.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Cors">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
@@ -79,6 +92,10 @@
     </Reference>
     <Reference Include="System.Web.Http.Cors">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.OData, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.OData.5.7.0\lib\net45\System.Web.Http.OData.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -137,7 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analitika_magacinske_kartice.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -176,6 +193,7 @@
     <Compile Include="Controllers\Grupa_robaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Jedinica_mereController.cs" />
+    <Compile Include="Controllers\KorisnikController.cs" />
     <Compile Include="Controllers\MagacinController.cs" />
     <Compile Include="Controllers\MestoController.cs" />
     <Compile Include="Controllers\PDVController.cs" />
@@ -187,67 +205,69 @@
     <Compile Include="Controllers\Robna_karticaController.cs" />
     <Compile Include="Controllers\Stavka_dokumentaController.cs" />
     <Compile Include="Controllers\Stopa_PDVaController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Faktura.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Grupa_roba.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Jedinica_mere.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Korisnik.cs">
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Magacin.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Mesto.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="PDV.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PoslovnaEntities.Context.cs">
+    <Compile Include="PoslovnaModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PoslovnaEntities.Context.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="PoslovnaEntities.cs">
+    <Compile Include="PoslovnaModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PoslovnaEntities.Designer.cs">
+    <Compile Include="PoslovnaModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>PoslovnaEntities.edmx</DependentUpon>
+      <DependentUpon>PoslovnaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Poslovna_godina.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Poslovni_partner.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Preduzece.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Prijemni_dokument.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Roba.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Robna_kartica.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Stavka_dokumenta.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Stopa_PDV_a.cs">
-      <DependentUpon>PoslovnaEntities.tt</DependentUpon>
+      <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -257,15 +277,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="PoslovnaEntities.Context.tt">
+    <Content Include="PoslovnaModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PoslovnaEntities.edmx</DependentUpon>
-      <LastGenOutput>PoslovnaEntities.Context.cs</LastGenOutput>
+      <DependentUpon>PoslovnaModel.edmx</DependentUpon>
+      <LastGenOutput>PoslovnaModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="PoslovnaEntities.tt">
+    <Content Include="PoslovnaModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PoslovnaEntities.edmx</DependentUpon>
-      <LastGenOutput>PoslovnaEntities.cs</LastGenOutput>
+      <DependentUpon>PoslovnaModel.edmx</DependentUpon>
+      <LastGenOutput>PoslovnaModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -288,12 +308,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="PoslovnaEntities.edmx">
+    <EntityDeploy Include="PoslovnaModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>PoslovnaEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>PoslovnaModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="PoslovnaEntities.edmx.diagram">
-      <DependentUpon>PoslovnaEntities.edmx</DependentUpon>
+    <Content Include="PoslovnaModel.edmx.diagram">
+      <DependentUpon>PoslovnaModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

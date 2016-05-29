@@ -19,6 +19,7 @@ namespace WebAPI
         public decimal Id_Prijemni_dokument { get; set; }
         public decimal Kolicina_Stavka_dokumenta { get; set; }
         public decimal Nabavna_vrednost_Stavka_dokumenta { get; set; }
+        public decimal Nabavna_cena_Stavka_dokumenta { get; set; }
         public decimal Procenat_marze_Stavka_dokumenta { get; set; }
         public Nullable<decimal> Transportni_trosak_Stavka_dokumenta { get; set; }
         public Nullable<decimal> Zavisni_trosak_Stavka_dokumenta { get; set; }

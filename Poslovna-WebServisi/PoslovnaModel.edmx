@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PoslovnaEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="PoslovnaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Analitika_magacinske_kartice">
           <Key>
             <PropertyRef Name="Id_Analitika_magacinske_kartice" />
@@ -17,6 +17,7 @@
           <Property Name="Kolicina_Analitika_magacinske_kartice" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Cena_Analitika_magacinske_kartice" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Vrednost_Analitika_magacinske_kartice" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Ukupno_stanje_Analitika_magacinske_kartice" Type="decimal" Precision="12" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="Faktura">
           <Key>
@@ -30,7 +31,7 @@
           <Property Name="Datum_valute_Faktura" Type="datetime" Nullable="false" />
           <Property Name="Ukupan_rabat_Faktura" Type="decimal" Precision="12" Scale="2" />
           <Property Name="Ukupan_iznos_bez_PDV_a_Faktura" Type="decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="Ukupan_PDV_Faktura" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Ukupan_PDV_Faktura" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Ukupno_za_placanje_Faktura" Type="decimal" Precision="12" Scale="2" />
         </EntityType>
         <EntityType Name="Grupa_roba">
@@ -47,14 +48,23 @@
             <PropertyRef Name="Id_Jedinica_mere" />
           </Key>
           <Property Name="Id_Jedinica_mere" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Naziv_Jedinica_mere" Type="varchar" MaxLength="50" />
+          <Property Name="Naziv_Jedinica_mere" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Oznaka_Jedinica_mere" Type="char" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="Id_Korisnik" />
+          </Key>
+          <Property Name="Korisnicko_ime_Korisnik" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lozinka_Korisnik" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id_Korisnik" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Magacin">
           <Key>
             <PropertyRef Name="Id_Magacin" />
           </Key>
           <Property Name="Id_Magacin" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Id_Preduzece" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Id_Preduzece" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Id" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Naziv_Magacin" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Adresa_Magacin" Type="varchar" MaxLength="100" Nullable="false" />
@@ -116,12 +126,14 @@
           <Property Name="Mag_Id_Magacin" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Id_Partner" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Redni_broj_Prijemni_dokument" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Poslovna_godina" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Datum_formiranja_Prijemni_dokument" Type="datetime" Nullable="false" />
           <Property Name="Datum_knjizenja_Prijemni_dokument" Type="datetime" />
-          <Property Name="Status_Prijemni_dokument" Type="char" MaxLength="1" Nullable="false" />
-          <Property Name="Ukupna_vrednost_Prijemni_dokument" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Status_Prijemni_dokument" Type="char" MaxLength="1" />
+          <Property Name="Ukupna_nabavna_vrednost_Prijemni_dokument" Type="decimal" Precision="12" Scale="2" />
           <Property Name="Transportni_troskovi_Prijemni_dokument" Type="decimal" Precision="12" Scale="2" />
           <Property Name="Zavisni_troskovi_Prijemni_dokument" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Ukupna_vrednost_Prijemni_dokument" Type="decimal" Precision="12" Scale="2" />
         </EntityType>
         <EntityType Name="Roba">
           <Key>
@@ -141,7 +153,7 @@
           <Property Name="Id_Poslovna_godina" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Id_Magacin" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Id_Roba" Type="numeric" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Prosecna_cena_Robna_kartica" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Prosecna_cena_Robna_kartica" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Poc_stanje_kol_Robna_kartica" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Poc_stanje_vrednost_Robna_kartica" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Promet_ulaza_kol_Robna_kartica" Type="decimal" Precision="10" Scale="2" />
@@ -160,6 +172,7 @@
           <Property Name="Id_Prijemni_dokument" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Kolicina_Stavka_dokumenta" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Nabavna_vrednost_Stavka_dokumenta" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Nabavna_cena_Stavka_dokumenta" Type="decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Procenat_marze_Stavka_dokumenta" Type="decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="Transportni_trosak_Stavka_dokumenta" Type="decimal" Precision="12" Scale="2" />
           <Property Name="Zavisni_trosak_Stavka_dokumenta" Type="decimal" Precision="12" Scale="2" />
@@ -248,7 +261,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MAGACIN_RELATIONS_PREDUZEC">
-          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="0..1" />
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="1" />
           <End Role="Magacin" Type="Self.Magacin" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Preduzece">
@@ -304,6 +317,18 @@
             </Principal>
             <Dependent Role="Preduzece">
               <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Prijemni_dokument_Poslovna_godina">
+          <End Role="Poslovna_godina" Type="Self.Poslovna_godina" Multiplicity="1" />
+          <End Role="Prijemni_dokument" Type="Self.Prijemni_dokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poslovna_godina">
+              <PropertyRef Name="Id_Poslovna_godina" />
+            </Principal>
+            <Dependent Role="Prijemni_dokument">
+              <PropertyRef Name="Id_Poslovna_godina" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -451,11 +476,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PoslovnaEntitiesStoreContainer">
+        <Function Name="Iskalkulisi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Id_PD" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="Proknjizi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id_primke" Type="numeric" Mode="In" />
+          <Parameter Name="storno" Type="bit" Mode="In" />
+        </Function>
+        <EntityContainer Name="PoslovnaModelStoreContainer">
           <EntitySet Name="Analitika_magacinske_kartice" EntityType="Self.Analitika_magacinske_kartice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Faktura" EntityType="Self.Faktura" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Grupa_roba" EntityType="Self.Grupa_roba" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jedinica_mere" EntityType="Self.Jedinica_mere" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Korisnik" EntityType="Self.Korisnik" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Magacin" EntityType="Self.Magacin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Mesto" EntityType="Self.Mesto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PDV" EntityType="Self.PDV" Schema="dbo" store:Type="Tables" />
@@ -511,6 +544,10 @@
             <End Role="Mesto" EntitySet="Mesto" />
             <End Role="Preduzece" EntitySet="Preduzece" />
           </AssociationSet>
+          <AssociationSet Name="FK_Prijemni_dokument_Poslovna_godina" Association="Self.FK_Prijemni_dokument_Poslovna_godina">
+            <End Role="Poslovna_godina" EntitySet="Poslovna_godina" />
+            <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
+          </AssociationSet>
           <AssociationSet Name="FK_PRIJEMNI_MAGACIN U_MAGACIN" Association="Self.FK_PRIJEMNI_MAGACIN U_MAGACIN">
             <End Role="Magacin" EntitySet="Magacin" />
             <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
@@ -564,7 +601,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PoslovnaEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="PoslovnaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Analitika_magacinske_kartice">
           <Key>
             <PropertyRef Name="Id_Analitika_magacinske_kartice" />
@@ -577,6 +614,7 @@
           <Property Name="Kolicina_Analitika_magacinske_kartice" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Cena_Analitika_magacinske_kartice" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Vrednost_Analitika_magacinske_kartice" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Ukupno_stanje_Analitika_magacinske_kartice" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
           <NavigationProperty Name="Robna_kartica" Relationship="Self.FK_ANALITIK_RELATIONS_ROBNA_KA" FromRole="Analitika_magacinske_kartice" ToRole="Robna_kartica" />
         </EntityType>
         <EntityType Name="Faktura">
@@ -591,7 +629,7 @@
           <Property Name="Datum_valute_Faktura" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Ukupan_rabat_Faktura" Type="Decimal" Precision="12" Scale="2" />
           <Property Name="Ukupan_iznos_bez_PDV_a_Faktura" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
-          <Property Name="Ukupan_PDV_Faktura" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Ukupan_PDV_Faktura" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Ukupno_za_placanje_Faktura" Type="Decimal" Precision="12" Scale="2" />
           <NavigationProperty Name="Poslovna_godina" Relationship="Self.FK_FAKTURA_RELATIONS_POSLOVNA" FromRole="Faktura" ToRole="Poslovna_godina" />
           <NavigationProperty Name="Poslovni_partner" Relationship="Self.FK_FAKTURA_RELATIONS_POSLOVNI" FromRole="Faktura" ToRole="Poslovni_partner" />
@@ -613,15 +651,24 @@
             <PropertyRef Name="Id_Jedinica_mere" />
           </Key>
           <Property Name="Id_Jedinica_mere" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Naziv_Jedinica_mere" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Naziv_Jedinica_mere" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Oznaka_Jedinica_mere" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Robas" Relationship="Self.FK_ROBA_RELATIONS_JEDINICA" FromRole="Jedinica_mere" ToRole="Roba" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="Id_Korisnik" />
+          </Key>
+          <Property Name="Korisnicko_ime_Korisnik" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lozinka_Korisnik" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id_Korisnik" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="Magacin">
           <Key>
             <PropertyRef Name="Id_Magacin" />
           </Key>
           <Property Name="Id_Magacin" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Id_Preduzece" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Id_Preduzece" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Id" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Naziv_Magacin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Adresa_Magacin" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -661,6 +708,7 @@
           <Property Name="Zakljucena_Poslovna_godina" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Fakturas" Relationship="Self.FK_FAKTURA_RELATIONS_POSLOVNA" FromRole="Poslovna_godina" ToRole="Faktura" />
           <NavigationProperty Name="Preduzece" Relationship="Self.FK_POSLOVNA_RELATIONS_PREDUZEC" FromRole="Poslovna_godina" ToRole="Preduzece" />
+          <NavigationProperty Name="Prijemni_dokument" Relationship="Self.FK_Prijemni_dokument_Poslovna_godina" FromRole="Poslovna_godina" ToRole="Prijemni_dokument" />
           <NavigationProperty Name="Robna_kartica" Relationship="Self.FK_ROBNA_KA_RELATIONS_POSLOVNA" FromRole="Poslovna_godina" ToRole="Robna_kartica" />
         </EntityType>
         <EntityType Name="Poslovni_partner">
@@ -706,14 +754,17 @@
           <Property Name="Mag_Id_Magacin" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Id_Partner" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Redni_broj_Prijemni_dokument" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Id_Poslovna_godina" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Datum_formiranja_Prijemni_dokument" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Datum_knjizenja_Prijemni_dokument" Type="DateTime" Precision="3" />
-          <Property Name="Status_Prijemni_dokument" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="Ukupna_vrednost_Prijemni_dokument" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Status_Prijemni_dokument" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Ukupna_nabavna_vrednost_Prijemni_dokument" Type="Decimal" Precision="12" Scale="2" />
           <Property Name="Transportni_troskovi_Prijemni_dokument" Type="Decimal" Precision="12" Scale="2" />
           <Property Name="Zavisni_troskovi_Prijemni_dokument" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Ukupna_vrednost_Prijemni_dokument" Type="Decimal" Precision="12" Scale="2" />
           <NavigationProperty Name="Magacin" Relationship="Self.FK_PRIJEMNI_MAGACIN_U_MAGACIN" FromRole="Prijemni_dokument" ToRole="Magacin" />
           <NavigationProperty Name="Magacin1" Relationship="Self.FK_PRIJEMNI_PROMETNI__MAGACIN" FromRole="Prijemni_dokument" ToRole="Magacin" />
+          <NavigationProperty Name="Poslovna_godina" Relationship="Self.FK_Prijemni_dokument_Poslovna_godina" FromRole="Prijemni_dokument" ToRole="Poslovna_godina" />
           <NavigationProperty Name="Poslovni_partner" Relationship="Self.FK_PRIJEMNI_POSLOVNI__POSLOVNI" FromRole="Prijemni_dokument" ToRole="Poslovni_partner" />
           <NavigationProperty Name="Stavka_dokumenta" Relationship="Self.FK_STAVKA_D_RELATIONS_PRIJEMNI" FromRole="Prijemni_dokument" ToRole="Stavka_dokumenta" />
         </EntityType>
@@ -740,7 +791,7 @@
           <Property Name="Id_Poslovna_godina" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Id_Magacin" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Id_Roba" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="Prosecna_cena_Robna_kartica" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Prosecna_cena_Robna_kartica" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Poc_stanje_kol_Robna_kartica" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="Poc_stanje_vrednost_Robna_kartica" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Promet_ulaza_kol_Robna_kartica" Type="Decimal" Precision="10" Scale="2" />
@@ -763,6 +814,7 @@
           <Property Name="Id_Prijemni_dokument" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Kolicina_Stavka_dokumenta" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Nabavna_vrednost_Stavka_dokumenta" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Nabavna_cena_Stavka_dokumenta" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
           <Property Name="Procenat_marze_Stavka_dokumenta" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="Transportni_trosak_Stavka_dokumenta" Type="Decimal" Precision="12" Scale="2" />
           <Property Name="Zavisni_trosak_Stavka_dokumenta" Type="Decimal" Precision="12" Scale="2" />
@@ -878,7 +930,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MAGACIN_RELATIONS_PREDUZEC">
-          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="0..1" />
+          <End Role="Preduzece" Type="Self.Preduzece" Multiplicity="1" />
           <End Role="Magacin" Type="Self.Magacin" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Preduzece">
@@ -973,6 +1025,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Prijemni_dokument_Poslovna_godina">
+          <End Role="Poslovna_godina" Type="Self.Poslovna_godina" Multiplicity="1" />
+          <End Role="Prijemni_dokument" Type="Self.Prijemni_dokument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poslovna_godina">
+              <PropertyRef Name="Id_Poslovna_godina" />
+            </Principal>
+            <Dependent Role="Prijemni_dokument">
+              <PropertyRef Name="Id_Poslovna_godina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ROBNA_KA_RELATIONS_POSLOVNA">
           <End Role="Poslovna_godina" Type="Self.Poslovna_godina" Multiplicity="1" />
           <End Role="Robna_kartica" Type="Self.Robna_kartica" Multiplicity="*" />
@@ -1057,11 +1121,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Poslovna" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PoslovnaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Analitika_magacinske_kartice" EntityType="Self.Analitika_magacinske_kartice" />
           <EntitySet Name="Fakturas" EntityType="Self.Faktura" />
           <EntitySet Name="Grupa_roba" EntityType="Self.Grupa_roba" />
           <EntitySet Name="Jedinica_mere" EntityType="Self.Jedinica_mere" />
+          <EntitySet Name="Korisniks" EntityType="Self.Korisnik" />
           <EntitySet Name="Magacins" EntityType="Self.Magacin" />
           <EntitySet Name="Mestoes" EntityType="Self.Mesto" />
           <EntitySet Name="PDVs" EntityType="Self.PDV" />
@@ -1137,6 +1202,10 @@
             <End Role="Preduzece" EntitySet="Preduzeces" />
             <End Role="Poslovna_godina" EntitySet="Poslovna_godina" />
           </AssociationSet>
+          <AssociationSet Name="FK_Prijemni_dokument_Poslovna_godina" Association="Self.FK_Prijemni_dokument_Poslovna_godina">
+            <End Role="Poslovna_godina" EntitySet="Poslovna_godina" />
+            <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
+          </AssociationSet>
           <AssociationSet Name="FK_ROBNA_KA_RELATIONS_POSLOVNA" Association="Self.FK_ROBNA_KA_RELATIONS_POSLOVNA">
             <End Role="Poslovna_godina" EntitySet="Poslovna_godina" />
             <End Role="Robna_kartica" EntitySet="Robna_kartica" />
@@ -1165,15 +1234,22 @@
             <End Role="Roba" EntitySet="Robas" />
             <End Role="Stavka_dokumenta" EntitySet="Stavka_dokumenta" />
           </AssociationSet>
+          <FunctionImport Name="Iskalkulisi">
+            <Parameter Name="Id_PD" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="Proknjizi">
+            <Parameter Name="id_primke" Mode="In" Type="Decimal" />
+            <Parameter Name="storno" Mode="In" Type="Boolean" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PoslovnaEntitiesStoreContainer" CdmEntityContainer="Poslovna">
+        <EntityContainerMapping StorageEntityContainer="PoslovnaModelStoreContainer" CdmEntityContainer="PoslovnaEntities">
           <EntitySetMapping Name="Analitika_magacinske_kartice">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Analitika_magacinske_kartice">
+            <EntityTypeMapping TypeName="PoslovnaModel.Analitika_magacinske_kartice">
               <MappingFragment StoreEntitySet="Analitika_magacinske_kartice">
                 <ScalarProperty Name="Id_Analitika_magacinske_kartice" ColumnName="Id_Analitika_magacinske_kartice" />
                 <ScalarProperty Name="Id_Robna_kartica" ColumnName="Id_Robna_kartica" />
@@ -1183,11 +1259,12 @@
                 <ScalarProperty Name="Kolicina_Analitika_magacinske_kartice" ColumnName="Kolicina_Analitika_magacinske_kartice" />
                 <ScalarProperty Name="Cena_Analitika_magacinske_kartice" ColumnName="Cena_Analitika_magacinske_kartice" />
                 <ScalarProperty Name="Vrednost_Analitika_magacinske_kartice" ColumnName="Vrednost_Analitika_magacinske_kartice" />
+                <ScalarProperty Name="Ukupno_stanje_Analitika_magacinske_kartice" ColumnName="Ukupno_stanje_Analitika_magacinske_kartice" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Fakturas">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Faktura">
+            <EntityTypeMapping TypeName="PoslovnaModel.Faktura">
               <MappingFragment StoreEntitySet="Faktura">
                 <ScalarProperty Name="Id_Faktura" ColumnName="Id_Faktura" />
                 <ScalarProperty Name="Id_Poslovna_godina" ColumnName="Id_Poslovna_godina" />
@@ -1203,7 +1280,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Grupa_roba">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Grupa_roba">
+            <EntityTypeMapping TypeName="PoslovnaModel.Grupa_roba">
               <MappingFragment StoreEntitySet="Grupa_roba">
                 <ScalarProperty Name="Id_Grupa_roba" ColumnName="Id_Grupa_roba" />
                 <ScalarProperty Name="Id_PDV" ColumnName="Id_PDV" />
@@ -1213,15 +1290,25 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Jedinica_mere">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Jedinica_mere">
+            <EntityTypeMapping TypeName="PoslovnaModel.Jedinica_mere">
               <MappingFragment StoreEntitySet="Jedinica_mere">
                 <ScalarProperty Name="Id_Jedinica_mere" ColumnName="Id_Jedinica_mere" />
                 <ScalarProperty Name="Naziv_Jedinica_mere" ColumnName="Naziv_Jedinica_mere" />
+                <ScalarProperty Name="Oznaka_Jedinica_mere" ColumnName="Oznaka_Jedinica_mere" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Korisniks">
+            <EntityTypeMapping TypeName="PoslovnaModel.Korisnik">
+              <MappingFragment StoreEntitySet="Korisnik">
+                <ScalarProperty Name="Korisnicko_ime_Korisnik" ColumnName="Korisnicko_ime_Korisnik" />
+                <ScalarProperty Name="Lozinka_Korisnik" ColumnName="Lozinka_Korisnik" />
+                <ScalarProperty Name="Id_Korisnik" ColumnName="Id_Korisnik" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Magacins">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Magacin">
+            <EntityTypeMapping TypeName="PoslovnaModel.Magacin">
               <MappingFragment StoreEntitySet="Magacin">
                 <ScalarProperty Name="Id_Magacin" ColumnName="Id_Magacin" />
                 <ScalarProperty Name="Id_Preduzece" ColumnName="Id_Preduzece" />
@@ -1232,7 +1319,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Mestoes">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Mesto">
+            <EntityTypeMapping TypeName="PoslovnaModel.Mesto">
               <MappingFragment StoreEntitySet="Mesto">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Naziv_Mesto" ColumnName="Naziv_Mesto" />
@@ -1241,7 +1328,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PDVs">
-            <EntityTypeMapping TypeName="PoslovnaEntities.PDV">
+            <EntityTypeMapping TypeName="PoslovnaModel.PDV">
               <MappingFragment StoreEntitySet="PDV">
                 <ScalarProperty Name="Id_PDV" ColumnName="Id_PDV" />
                 <ScalarProperty Name="Naziv_PDV" ColumnName="Naziv_PDV" />
@@ -1249,7 +1336,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Poslovna_godina">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Poslovna_godina">
+            <EntityTypeMapping TypeName="PoslovnaModel.Poslovna_godina">
               <MappingFragment StoreEntitySet="Poslovna_godina">
                 <ScalarProperty Name="Id_Poslovna_godina" ColumnName="Id_Poslovna_godina" />
                 <ScalarProperty Name="Id_Preduzece" ColumnName="Id_Preduzece" />
@@ -1259,7 +1346,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Poslovni_partner">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Poslovni_partner">
+            <EntityTypeMapping TypeName="PoslovnaModel.Poslovni_partner">
               <MappingFragment StoreEntitySet="Poslovni_partner">
                 <ScalarProperty Name="Id_Partner" ColumnName="Id_Partner" />
                 <ScalarProperty Name="Id_Preduzece" ColumnName="Id_Preduzece" />
@@ -1273,7 +1360,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Preduzeces">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Preduzece">
+            <EntityTypeMapping TypeName="PoslovnaModel.Preduzece">
               <MappingFragment StoreEntitySet="Preduzece">
                 <ScalarProperty Name="Id_Preduzece" ColumnName="Id_Preduzece" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1285,24 +1372,26 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Prijemni_dokument">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Prijemni_dokument">
+            <EntityTypeMapping TypeName="PoslovnaModel.Prijemni_dokument">
               <MappingFragment StoreEntitySet="Prijemni_dokument">
                 <ScalarProperty Name="Id_Prijemni_dokument" ColumnName="Id_Prijemni_dokument" />
                 <ScalarProperty Name="Id_Magacin" ColumnName="Id_Magacin" />
                 <ScalarProperty Name="Mag_Id_Magacin" ColumnName="Mag_Id_Magacin" />
                 <ScalarProperty Name="Id_Partner" ColumnName="Id_Partner" />
                 <ScalarProperty Name="Redni_broj_Prijemni_dokument" ColumnName="Redni_broj_Prijemni_dokument" />
+                <ScalarProperty Name="Id_Poslovna_godina" ColumnName="Id_Poslovna_godina" />
                 <ScalarProperty Name="Datum_formiranja_Prijemni_dokument" ColumnName="Datum_formiranja_Prijemni_dokument" />
                 <ScalarProperty Name="Datum_knjizenja_Prijemni_dokument" ColumnName="Datum_knjizenja_Prijemni_dokument" />
                 <ScalarProperty Name="Status_Prijemni_dokument" ColumnName="Status_Prijemni_dokument" />
-                <ScalarProperty Name="Ukupna_vrednost_Prijemni_dokument" ColumnName="Ukupna_vrednost_Prijemni_dokument" />
+                <ScalarProperty Name="Ukupna_nabavna_vrednost_Prijemni_dokument" ColumnName="Ukupna_nabavna_vrednost_Prijemni_dokument" />
                 <ScalarProperty Name="Transportni_troskovi_Prijemni_dokument" ColumnName="Transportni_troskovi_Prijemni_dokument" />
                 <ScalarProperty Name="Zavisni_troskovi_Prijemni_dokument" ColumnName="Zavisni_troskovi_Prijemni_dokument" />
+                <ScalarProperty Name="Ukupna_vrednost_Prijemni_dokument" ColumnName="Ukupna_vrednost_Prijemni_dokument" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Robas">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Roba">
+            <EntityTypeMapping TypeName="PoslovnaModel.Roba">
               <MappingFragment StoreEntitySet="Roba">
                 <ScalarProperty Name="Id_Roba" ColumnName="Id_Roba" />
                 <ScalarProperty Name="Id_Grupa_roba" ColumnName="Id_Grupa_roba" />
@@ -1313,7 +1402,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Robna_kartica">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Robna_kartica">
+            <EntityTypeMapping TypeName="PoslovnaModel.Robna_kartica">
               <MappingFragment StoreEntitySet="Robna_kartica">
                 <ScalarProperty Name="Id_Robna_kartica" ColumnName="Id_Robna_kartica" />
                 <ScalarProperty Name="Id_Poslovna_godina" ColumnName="Id_Poslovna_godina" />
@@ -1332,13 +1421,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Stavka_dokumenta">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Stavka_dokumenta">
+            <EntityTypeMapping TypeName="PoslovnaModel.Stavka_dokumenta">
               <MappingFragment StoreEntitySet="Stavka_dokumenta">
                 <ScalarProperty Name="Id_Stavka_dokumenta" ColumnName="Id_Stavka_dokumenta" />
                 <ScalarProperty Name="Id_Roba" ColumnName="Id_Roba" />
                 <ScalarProperty Name="Id_Prijemni_dokument" ColumnName="Id_Prijemni_dokument" />
                 <ScalarProperty Name="Kolicina_Stavka_dokumenta" ColumnName="Kolicina_Stavka_dokumenta" />
                 <ScalarProperty Name="Nabavna_vrednost_Stavka_dokumenta" ColumnName="Nabavna_vrednost_Stavka_dokumenta" />
+                <ScalarProperty Name="Nabavna_cena_Stavka_dokumenta" ColumnName="Nabavna_cena_Stavka_dokumenta" />
                 <ScalarProperty Name="Procenat_marze_Stavka_dokumenta" ColumnName="Procenat_marze_Stavka_dokumenta" />
                 <ScalarProperty Name="Transportni_trosak_Stavka_dokumenta" ColumnName="Transportni_trosak_Stavka_dokumenta" />
                 <ScalarProperty Name="Zavisni_trosak_Stavka_dokumenta" ColumnName="Zavisni_trosak_Stavka_dokumenta" />
@@ -1348,7 +1438,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Stopa_PDV_a">
-            <EntityTypeMapping TypeName="PoslovnaEntities.Stopa_PDV_a">
+            <EntityTypeMapping TypeName="PoslovnaModel.Stopa_PDV_a">
               <MappingFragment StoreEntitySet="Stopa_PDV_a">
                 <ScalarProperty Name="Id_Stopa_PDV_a" ColumnName="Id_Stopa_PDV_a" />
                 <ScalarProperty Name="Id_PDV" ColumnName="Id_PDV" />
@@ -1357,6 +1447,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Iskalkulisi" FunctionName="PoslovnaModel.Store.Iskalkulisi" />
+          <FunctionImportMapping FunctionImportName="Proknjizi" FunctionName="PoslovnaModel.Store.Proknjizi" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

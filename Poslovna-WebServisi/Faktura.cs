@@ -22,7 +22,7 @@ namespace WebAPI
         public System.DateTime Datum_valute_Faktura { get; set; }
         public Nullable<decimal> Ukupan_rabat_Faktura { get; set; }
         public decimal Ukupan_iznos_bez_PDV_a_Faktura { get; set; }
-        public Nullable<decimal> Ukupan_PDV_Faktura { get; set; }
+        public decimal Ukupan_PDV_Faktura { get; set; }
         public Nullable<decimal> Ukupno_za_placanje_Faktura { get; set; }
     
         public virtual Poslovna_godina Poslovna_godina { get; set; }

@@ -22,6 +22,7 @@ namespace WebAPI
         public decimal Kolicina_Analitika_magacinske_kartice { get; set; }
         public decimal Cena_Analitika_magacinske_kartice { get; set; }
         public decimal Vrednost_Analitika_magacinske_kartice { get; set; }
+        public decimal Ukupno_stanje_Analitika_magacinske_kartice { get; set; }
     
         public virtual Robna_kartica Robna_kartica { get; set; }
     }

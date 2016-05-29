@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using WebAPI;
+using System.Web.Http.OData;
 
 namespace WebAPI.Controllers
 {
     public class Stavka_dokumentaController : ApiController
     {
-        private Poslovna db = new Poslovna();
+        private PoslovnaEntities db = new PoslovnaEntities();
 
         // GET: api/Stavka_dokumenta
+        [EnableQuery]
         public IQueryable<Stavka_dokumenta> GetStavka_dokumenta()
         {
             return db.Stavka_dokumenta;

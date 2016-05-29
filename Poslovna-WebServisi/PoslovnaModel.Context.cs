@@ -12,11 +12,13 @@ namespace WebAPI
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
-    public partial class Poslovna : DbContext
+    public partial class PoslovnaEntities : DbContext
     {
-        public Poslovna()
-            : base("name=Poslovna")
+        public PoslovnaEntities()
+            : base("name=PoslovnaEntities")
         {
         }
     
@@ -29,6 +31,7 @@ namespace WebAPI
         public virtual DbSet<Faktura> Fakturas { get; set; }
         public virtual DbSet<Grupa_roba> Grupa_roba { get; set; }
         public virtual DbSet<Jedinica_mere> Jedinica_mere { get; set; }
+        public virtual DbSet<Korisnik> Korisniks { get; set; }
         public virtual DbSet<Magacin> Magacins { get; set; }
         public virtual DbSet<Mesto> Mestoes { get; set; }
         public virtual DbSet<PDV> PDVs { get; set; }
@@ -40,5 +43,27 @@ namespace WebAPI
         public virtual DbSet<Robna_kartica> Robna_kartica { get; set; }
         public virtual DbSet<Stavka_dokumenta> Stavka_dokumenta { get; set; }
         public virtual DbSet<Stopa_PDV_a> Stopa_PDV_a { get; set; }
+    
+        public virtual int Iskalkulisi(Nullable<decimal> id_PD)
+        {
+            var id_PDParameter = id_PD.HasValue ?
+                new ObjectParameter("Id_PD", id_PD) :
+                new ObjectParameter("Id_PD", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Iskalkulisi", id_PDParameter);
+        }
+    
+        public virtual int Proknjizi(Nullable<decimal> id_primke, Nullable<bool> storno)
+        {
+            var id_primkeParameter = id_primke.HasValue ?
+                new ObjectParameter("id_primke", id_primke) :
+                new ObjectParameter("id_primke", typeof(decimal));
+    
+            var stornoParameter = storno.HasValue ?
+                new ObjectParameter("storno", storno) :
+                new ObjectParameter("storno", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Proknjizi", id_primkeParameter, stornoParameter);
+        }
     }
 }
