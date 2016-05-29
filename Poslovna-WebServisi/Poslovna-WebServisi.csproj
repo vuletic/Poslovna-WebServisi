@@ -260,6 +260,11 @@
       <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Roba.cs">
       <DependentUpon>PoslovnaModel.tt</DependentUpon>
     </Compile>
@@ -318,6 +323,10 @@
     <Content Include="PoslovnaModel.edmx.diagram">
       <DependentUpon>PoslovnaModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

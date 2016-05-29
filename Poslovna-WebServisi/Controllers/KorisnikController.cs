@@ -81,18 +81,13 @@ namespace WebAPI.Controllers
                                    && kor.Lozinka_Korisnik == korisnik.Lozinka_Korisnik
                                    select kor).FirstOrDefault();
 
-            string jwt = "";
-
-            string secret = "Test";
-            byte[] bytesToEncode = Encoding.UTF8.GetBytes(secret);
-            string encodedText = Convert.ToBase64String(bytesToEncode);
 
             var payload = new Dictionary<string, object>()
             {
                 { "sub", k.Korisnicko_ime_Korisnik } 
             };
        
-            jwt = JWT.JsonWebToken.Encode(payload, secret, JWT.JwtHashAlgorithm.HS256);
+            string jwt = JWT.JsonWebToken.Encode(payload, Properties.Settings.Default.Secret, JWT.JwtHashAlgorithm.HS256);
 
             if (k != null)
                 return jwt;
