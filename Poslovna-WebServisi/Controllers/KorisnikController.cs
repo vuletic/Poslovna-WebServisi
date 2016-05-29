@@ -1,7 +1,10 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -69,19 +72,34 @@ namespace WebAPI.Controllers
         }
 
         // POST: api/Korisnik
-        [ResponseType(typeof(Korisnik))]
-        public async Task<IHttpActionResult> PostKorisnik(Korisnik korisnik)
+        [ResponseType(typeof(String))]
+        public String PostKorisnik(Korisnik korisnik)
         {
-            if (!ModelState.IsValid)
+           
+            Korisnik k = (Korisnik)(from kor in db.Korisniks
+                                   where kor.Korisnicko_ime_Korisnik == korisnik.Korisnicko_ime_Korisnik
+                                   && kor.Lozinka_Korisnik == korisnik.Lozinka_Korisnik
+                                   select kor).FirstOrDefault();
+
+            string jwt = "";
+
+            string secret = "Test";
+            byte[] bytesToEncode = Encoding.UTF8.GetBytes(secret);
+            string encodedText = Convert.ToBase64String(bytesToEncode);
+
+            var payload = new Dictionary<string, object>()
             {
-                return BadRequest(ModelState);
-            }
+                { "sub", k.Korisnicko_ime_Korisnik } 
+            };
+       
+            jwt = JWT.JsonWebToken.Encode(payload, secret, JWT.JwtHashAlgorithm.HS256);
 
-            db.Korisniks.Add(korisnik);
-            await db.SaveChangesAsync();
-
-            return CreatedAtRoute("DefaultApi", new { id = korisnik.Id_Korisnik }, korisnik);
+            if (k != null)
+                return jwt;
+            else
+                return null;
         }
+
 
         // DELETE: api/Korisnik/5
         [ResponseType(typeof(Korisnik))]
