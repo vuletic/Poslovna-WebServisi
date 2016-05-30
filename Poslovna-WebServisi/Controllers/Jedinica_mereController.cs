@@ -97,8 +97,15 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Jedinica_mere.Add(jedinica_mere);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Jedinica_mere.Add(jedinica_mere);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = jedinica_mere.Id_Jedinica_mere }, jedinica_mere);
         }

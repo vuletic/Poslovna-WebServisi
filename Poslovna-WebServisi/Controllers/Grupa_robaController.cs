@@ -96,9 +96,15 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            db.Grupa_roba.Add(grupa_roba);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Grupa_roba.Add(grupa_roba);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = grupa_roba.Id_Grupa_roba }, grupa_roba);
         }

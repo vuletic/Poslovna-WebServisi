@@ -101,8 +101,15 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Robas.Add(roba);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Robas.Add(roba);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = roba.Id_Roba }, roba);
         }

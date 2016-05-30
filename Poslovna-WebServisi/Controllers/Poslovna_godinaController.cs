@@ -101,8 +101,15 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Poslovna_godina.Add(poslovna_godina);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Poslovna_godina.Add(poslovna_godina);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = poslovna_godina.Id_Poslovna_godina }, poslovna_godina);
         }

@@ -97,9 +97,15 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Fakturas.Add(faktura);
-            await db.SaveChangesAsync();
-
+            try
+            {
+                db.Fakturas.Add(faktura);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
             return CreatedAtRoute("DefaultApi", new { id = faktura.Id_Faktura }, faktura);
         }
 

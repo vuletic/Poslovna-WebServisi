@@ -101,8 +101,15 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.PDVs.Add(pDV);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.PDVs.Add(pDV);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = pDV.Id_PDV }, pDV);
         }

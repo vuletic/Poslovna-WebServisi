@@ -101,8 +101,15 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Stopa_PDV_a.Add(stopa_PDV_a);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Stopa_PDV_a.Add(stopa_PDV_a);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = stopa_PDV_a.Id_Stopa_PDV_a }, stopa_PDV_a);
         }

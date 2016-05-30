@@ -103,8 +103,15 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Mestoes.Add(mesto);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Mestoes.Add(mesto);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = mesto.Id }, mesto);
         }

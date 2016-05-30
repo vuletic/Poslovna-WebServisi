@@ -101,8 +101,15 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Robna_kartica.Add(robna_kartica);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Robna_kartica.Add(robna_kartica);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = robna_kartica.Id_Robna_kartica }, robna_kartica);
         }

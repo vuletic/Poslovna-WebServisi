@@ -101,8 +101,15 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Magacins.Add(magacin);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Magacins.Add(magacin);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = magacin.Id_Magacin }, magacin);
         }

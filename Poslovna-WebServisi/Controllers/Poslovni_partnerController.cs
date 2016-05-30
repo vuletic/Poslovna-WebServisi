@@ -101,8 +101,15 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Poslovni_partner.Add(poslovni_partner);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Poslovni_partner.Add(poslovni_partner);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = poslovni_partner.Id_Partner }, poslovni_partner);
         }

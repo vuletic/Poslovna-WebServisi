@@ -101,8 +101,15 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Preduzeces.Add(preduzece);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Preduzeces.Add(preduzece);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = preduzece.Id_Preduzece }, preduzece);
         }

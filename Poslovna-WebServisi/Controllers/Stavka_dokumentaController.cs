@@ -101,8 +101,15 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Stavka_dokumenta.Add(stavka_dokumenta);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Stavka_dokumenta.Add(stavka_dokumenta);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = stavka_dokumenta.Id_Stavka_dokumenta }, stavka_dokumenta);
         }
