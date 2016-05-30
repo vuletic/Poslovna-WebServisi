@@ -130,8 +130,15 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            db.Preduzeces.Remove(preduzece);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Preduzeces.Remove(preduzece);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return Ok(preduzece);
         }

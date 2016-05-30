@@ -125,8 +125,15 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            db.Jedinica_mere.Remove(jedinica_mere);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Jedinica_mere.Remove(jedinica_mere);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return Ok(jedinica_mere);
         }

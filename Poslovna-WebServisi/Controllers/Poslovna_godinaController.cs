@@ -130,8 +130,15 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            db.Poslovna_godina.Remove(poslovna_godina);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Poslovna_godina.Remove(poslovna_godina);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return Ok(poslovna_godina);
         }

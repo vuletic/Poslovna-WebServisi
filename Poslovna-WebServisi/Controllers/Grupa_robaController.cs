@@ -124,8 +124,15 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            db.Grupa_roba.Remove(grupa_roba);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Grupa_roba.Remove(grupa_roba);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return Ok(grupa_roba);
         }

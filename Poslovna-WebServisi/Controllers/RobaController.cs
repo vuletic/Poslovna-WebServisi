@@ -130,8 +130,15 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            db.Robas.Remove(roba);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Robas.Remove(roba);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return Ok(roba);
         }

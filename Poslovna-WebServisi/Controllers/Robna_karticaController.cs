@@ -130,8 +130,15 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            db.Robna_kartica.Remove(robna_kartica);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Robna_kartica.Remove(robna_kartica);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return Ok(robna_kartica);
         }

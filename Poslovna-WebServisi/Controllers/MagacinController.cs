@@ -130,8 +130,15 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            db.Magacins.Remove(magacin);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Magacins.Remove(magacin);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return Ok(magacin);
         }

@@ -130,8 +130,15 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            db.PDVs.Remove(pDV);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.PDVs.Remove(pDV);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return Ok(pDV);
         }

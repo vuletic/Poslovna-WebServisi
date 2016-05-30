@@ -130,8 +130,15 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            db.Prijemni_dokument.Remove(prijemni_dokument);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Prijemni_dokument.Remove(prijemni_dokument);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return Ok(prijemni_dokument);
         }

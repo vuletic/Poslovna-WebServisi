@@ -132,8 +132,15 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            db.Mestoes.Remove(mesto);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Mestoes.Remove(mesto);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return Ok(mesto);
         }

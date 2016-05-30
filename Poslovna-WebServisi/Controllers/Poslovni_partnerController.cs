@@ -130,8 +130,15 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
 
-            db.Poslovni_partner.Remove(poslovni_partner);
-            await db.SaveChangesAsync();
+            try
+            {
+                db.Poslovni_partner.Remove(poslovni_partner);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return null;
+            }
 
             return Ok(poslovni_partner);
         }
