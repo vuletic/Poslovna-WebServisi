@@ -15,11 +15,16 @@ namespace WebAPI.Controllers
     public class KorisnikController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Korisnik
         [EnableQuery]
         public IQueryable<Korisnik> GetKorisniks()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             return db.Korisniks;
         }
 
@@ -27,6 +32,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Korisnik))]
         public async Task<IHttpActionResult> GetKorisnik(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             Korisnik korisnik = await db.Korisniks.FindAsync(id);
             if (korisnik == null)
             {
@@ -100,6 +110,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Korisnik))]
         public async Task<IHttpActionResult> DeleteKorisnik(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             Korisnik korisnik = await db.Korisniks.FindAsync(id);
             if (korisnik == null)
             {

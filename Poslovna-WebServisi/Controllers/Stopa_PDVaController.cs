@@ -12,11 +12,17 @@ namespace WebAPI.Controllers
     public class Stopa_PDVaController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Stopa_PDVa
         [EnableQuery]
         public IQueryable<Stopa_PDV_a> GetStopa_PDV_a()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             return db.Stopa_PDV_a;
         }
 
@@ -24,6 +30,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Stopa_PDV_a))]
         public async Task<IHttpActionResult> GetStopa_PDV_a(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Stopa_PDV_a stopa_PDV_a = await db.Stopa_PDV_a.FindAsync(id);
             if (stopa_PDV_a == null)
             {
@@ -37,6 +49,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutStopa_PDV_a(decimal id, Stopa_PDV_a stopa_PDV_a)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +90,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Stopa_PDV_a))]
         public async Task<IHttpActionResult> PostStopa_PDV_a(Stopa_PDV_a stopa_PDV_a)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +111,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Stopa_PDV_a))]
         public async Task<IHttpActionResult> DeleteStopa_PDV_a(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Stopa_PDV_a stopa_PDV_a = await db.Stopa_PDV_a.FindAsync(id);
             if (stopa_PDV_a == null)
             {

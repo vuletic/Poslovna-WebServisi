@@ -12,11 +12,16 @@ namespace WebAPI.Controllers
     public class FakturaController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Faktura
         [EnableQuery]
         public IQueryable<Faktura> GetFakturas()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             return db.Fakturas;
         }
 
@@ -24,6 +29,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Faktura))]
         public async Task<IHttpActionResult> GetFaktura(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             Faktura faktura = await db.Fakturas.FindAsync(id);
             if (faktura == null)
             {
@@ -37,6 +47,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutFaktura(decimal id, Faktura faktura)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +87,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Faktura))]
         public async Task<IHttpActionResult> PostFaktura(Faktura faktura)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +107,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Faktura))]
         public async Task<IHttpActionResult> DeleteFaktura(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             Faktura faktura = await db.Fakturas.FindAsync(id);
             if (faktura == null)
             {

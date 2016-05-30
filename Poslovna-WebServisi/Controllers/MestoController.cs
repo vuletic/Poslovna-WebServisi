@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -12,11 +13,18 @@ namespace WebAPI.Controllers
     public class MestoController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
+        private TokenHandler handler = new TokenHandler();
 
         // GET: api/Mesto
         [EnableQuery]
         public IQueryable<Mesto> GetMestoes()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             return db.Mestoes;
         }
 
@@ -24,6 +32,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Mesto))]
         public async Task<IHttpActionResult> GetMesto(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Mesto mesto = await db.Mestoes.FindAsync(id);
             if (mesto == null)
             {
@@ -37,6 +51,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutMesto(decimal id, Mesto mesto)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +92,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Mesto))]
         public async Task<IHttpActionResult> PostMesto(Mesto mesto)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +113,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Mesto))]
         public async Task<IHttpActionResult> DeleteMesto(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Mesto mesto = await db.Mestoes.FindAsync(id);
             if (mesto == null)
             {

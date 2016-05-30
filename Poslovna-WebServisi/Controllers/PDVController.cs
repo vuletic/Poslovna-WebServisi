@@ -12,11 +12,17 @@ namespace WebAPI.Controllers
     public class PDVController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/PDV
         [EnableQuery]
         public IQueryable<PDV> GetPDVs()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             return db.PDVs;
         }
 
@@ -24,6 +30,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(PDV))]
         public async Task<IHttpActionResult> GetPDV(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             PDV pDV = await db.PDVs.FindAsync(id);
             if (pDV == null)
             {
@@ -37,6 +49,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutPDV(decimal id, PDV pDV)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +90,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(PDV))]
         public async Task<IHttpActionResult> PostPDV(PDV pDV)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +111,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(PDV))]
         public async Task<IHttpActionResult> DeletePDV(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             PDV pDV = await db.PDVs.FindAsync(id);
             if (pDV == null)
             {

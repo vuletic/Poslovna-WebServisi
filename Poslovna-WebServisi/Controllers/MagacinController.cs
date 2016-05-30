@@ -12,11 +12,17 @@ namespace WebAPI.Controllers
     public class MagacinController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Magacin
         [EnableQuery]
         public IQueryable<Magacin> GetMagacins()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             return db.Magacins;
         }
 
@@ -24,6 +30,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Magacin))]
         public async Task<IHttpActionResult> GetMagacin(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Magacin magacin = await db.Magacins.FindAsync(id);
             if (magacin == null)
             {
@@ -37,6 +49,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutMagacin(decimal id, Magacin magacin)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +90,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Magacin))]
         public async Task<IHttpActionResult> PostMagacin(Magacin magacin)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +111,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Magacin))]
         public async Task<IHttpActionResult> DeleteMagacin(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Magacin magacin = await db.Magacins.FindAsync(id);
             if (magacin == null)
             {

@@ -12,11 +12,16 @@ namespace WebAPI.Controllers
     public class Jedinica_mereController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Jedinica_mere
         [EnableQuery]
         public IQueryable<Jedinica_mere> GetJedinica_mere()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             return db.Jedinica_mere;
         }
 
@@ -24,6 +29,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Jedinica_mere))]
         public async Task<IHttpActionResult> GetJedinica_mere(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             Jedinica_mere jedinica_mere = await db.Jedinica_mere.FindAsync(id);
             if (jedinica_mere == null)
             {
@@ -37,6 +47,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutJedinica_mere(decimal id, Jedinica_mere jedinica_mere)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +87,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Jedinica_mere))]
         public async Task<IHttpActionResult> PostJedinica_mere(Jedinica_mere jedinica_mere)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +107,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Jedinica_mere))]
         public async Task<IHttpActionResult> DeleteJedinica_mere(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             Jedinica_mere jedinica_mere = await db.Jedinica_mere.FindAsync(id);
             if (jedinica_mere == null)
             {

@@ -12,11 +12,16 @@ namespace WebAPI.Controllers
     public class Analitika_magacinske_karticeController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Analitika_magacinske_kartice
         [EnableQuery]
         public IQueryable<Analitika_magacinske_kartice> GetAnalitika_magacinske_kartice()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             return db.Analitika_magacinske_kartice;
         }
 
@@ -24,6 +29,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Analitika_magacinske_kartice))]
         public async Task<IHttpActionResult> GetAnalitika_magacinske_kartice(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             Analitika_magacinske_kartice analitika_magacinske_kartice = await db.Analitika_magacinske_kartice.FindAsync(id);
             if (analitika_magacinske_kartice == null)
             {
@@ -37,6 +47,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutAnalitika_magacinske_kartice(decimal id, Analitika_magacinske_kartice analitika_magacinske_kartice)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +87,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Analitika_magacinske_kartice))]
         public async Task<IHttpActionResult> PostAnalitika_magacinske_kartice(Analitika_magacinske_kartice analitika_magacinske_kartice)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +107,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Analitika_magacinske_kartice))]
         public async Task<IHttpActionResult> DeleteAnalitika_magacinske_kartice(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             Analitika_magacinske_kartice analitika_magacinske_kartice = await db.Analitika_magacinske_kartice.FindAsync(id);
             if (analitika_magacinske_kartice == null)
             {

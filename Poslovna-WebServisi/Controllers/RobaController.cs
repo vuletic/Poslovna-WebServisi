@@ -12,11 +12,17 @@ namespace WebAPI.Controllers
     public class RobaController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Roba
         [EnableQuery]
         public IQueryable<Roba> GetRobas()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             return db.Robas;
         }
 
@@ -24,6 +30,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Roba))]
         public async Task<IHttpActionResult> GetRoba(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Roba roba = await db.Robas.FindAsync(id);
             if (roba == null)
             {
@@ -37,6 +49,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutRoba(decimal id, Roba roba)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +90,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Roba))]
         public async Task<IHttpActionResult> PostRoba(Roba roba)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +111,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Roba))]
         public async Task<IHttpActionResult> DeleteRoba(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Roba roba = await db.Robas.FindAsync(id);
             if (roba == null)
             {

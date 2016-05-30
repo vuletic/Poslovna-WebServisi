@@ -12,11 +12,16 @@ namespace WebAPI.Controllers
     public class Grupa_robaController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Grupa_roba
         [EnableQuery]
         public IQueryable<Grupa_roba> GetGrupa_roba()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             return db.Grupa_roba;
         }
 
@@ -24,6 +29,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Grupa_roba))]
         public async Task<IHttpActionResult> GetGrupa_roba(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             Grupa_roba grupa_roba = await db.Grupa_roba.FindAsync(id);
             if (grupa_roba == null)
             {
@@ -37,6 +47,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutGrupa_roba(decimal id, Grupa_roba grupa_roba)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +87,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Grupa_roba))]
         public async Task<IHttpActionResult> PostGrupa_roba(Grupa_roba grupa_roba)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +107,11 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Grupa_roba))]
         public async Task<IHttpActionResult> DeleteGrupa_roba(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
             Grupa_roba grupa_roba = await db.Grupa_roba.FindAsync(id);
             if (grupa_roba == null)
             {

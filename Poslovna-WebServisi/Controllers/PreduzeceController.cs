@@ -12,11 +12,17 @@ namespace WebAPI.Controllers
     public class PreduzeceController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Preduzece
         [EnableQuery]
         public IQueryable<Preduzece> GetPreduzeces()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             return db.Preduzeces;
         }
 
@@ -24,6 +30,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Preduzece))]
         public async Task<IHttpActionResult> GetPreduzece(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Preduzece preduzece = await db.Preduzeces.FindAsync(id);
             if (preduzece == null)
             {
@@ -37,6 +49,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutPreduzece(decimal id, Preduzece preduzece)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +90,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Preduzece))]
         public async Task<IHttpActionResult> PostPreduzece(Preduzece preduzece)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +111,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Preduzece))]
         public async Task<IHttpActionResult> DeletePreduzece(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Preduzece preduzece = await db.Preduzeces.FindAsync(id);
             if (preduzece == null)
             {

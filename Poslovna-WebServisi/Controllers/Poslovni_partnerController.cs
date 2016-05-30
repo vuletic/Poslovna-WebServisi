@@ -12,11 +12,17 @@ namespace WebAPI.Controllers
     public class Poslovni_partnerController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Poslovni_partner
         [EnableQuery]
         public IQueryable<Poslovni_partner> GetPoslovni_partner()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             return db.Poslovni_partner;
         }
 
@@ -24,6 +30,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Poslovni_partner))]
         public async Task<IHttpActionResult> GetPoslovni_partner(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Poslovni_partner poslovni_partner = await db.Poslovni_partner.FindAsync(id);
             if (poslovni_partner == null)
             {
@@ -37,6 +49,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutPoslovni_partner(decimal id, Poslovni_partner poslovni_partner)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +90,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Poslovni_partner))]
         public async Task<IHttpActionResult> PostPoslovni_partner(Poslovni_partner poslovni_partner)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +111,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Poslovni_partner))]
         public async Task<IHttpActionResult> DeletePoslovni_partner(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Poslovni_partner poslovni_partner = await db.Poslovni_partner.FindAsync(id);
             if (poslovni_partner == null)
             {

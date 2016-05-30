@@ -12,11 +12,17 @@ namespace WebAPI.Controllers
     public class Robna_karticaController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Robna_kartica
         [EnableQuery]
         public IQueryable<Robna_kartica> GetRobna_kartica()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             return db.Robna_kartica;
         }
 
@@ -24,6 +30,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Robna_kartica))]
         public async Task<IHttpActionResult> GetRobna_kartica(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Robna_kartica robna_kartica = await db.Robna_kartica.FindAsync(id);
             if (robna_kartica == null)
             {
@@ -37,6 +49,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutRobna_kartica(decimal id, Robna_kartica robna_kartica)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +90,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Robna_kartica))]
         public async Task<IHttpActionResult> PostRobna_kartica(Robna_kartica robna_kartica)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +111,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Robna_kartica))]
         public async Task<IHttpActionResult> DeleteRobna_kartica(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Robna_kartica robna_kartica = await db.Robna_kartica.FindAsync(id);
             if (robna_kartica == null)
             {

@@ -12,11 +12,17 @@ namespace WebAPI.Controllers
     public class Poslovna_godinaController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Poslovna_godina
         [EnableQuery]
         public IQueryable<Poslovna_godina> GetPoslovna_godina()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             return db.Poslovna_godina;
         }
 
@@ -24,6 +30,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Poslovna_godina))]
         public async Task<IHttpActionResult> GetPoslovna_godina(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Poslovna_godina poslovna_godina = await db.Poslovna_godina.FindAsync(id);
             if (poslovna_godina == null)
             {
@@ -37,6 +49,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutPoslovna_godina(decimal id, Poslovna_godina poslovna_godina)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +90,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Poslovna_godina))]
         public async Task<IHttpActionResult> PostPoslovna_godina(Poslovna_godina poslovna_godina)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +111,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Poslovna_godina))]
         public async Task<IHttpActionResult> DeletePoslovna_godina(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Poslovna_godina poslovna_godina = await db.Poslovna_godina.FindAsync(id);
             if (poslovna_godina == null)
             {

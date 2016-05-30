@@ -12,11 +12,17 @@ namespace WebAPI.Controllers
     public class Prijemni_dokumentController : ApiController
     {
         private PoslovnaEntities db = new PoslovnaEntities();
-
+        private TokenHandler handler = new TokenHandler();
         // GET: api/Prijemni_dokument
         [EnableQuery]
         public IQueryable<Prijemni_dokument> GetPrijemni_dokument()
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             return db.Prijemni_dokument;
         }
 
@@ -24,6 +30,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Prijemni_dokument))]
         public async Task<IHttpActionResult> GetPrijemni_dokument(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Prijemni_dokument prijemni_dokument = await db.Prijemni_dokument.FindAsync(id);
             if (prijemni_dokument == null)
             {
@@ -37,6 +49,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutPrijemni_dokument(decimal id, Prijemni_dokument prijemni_dokument)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -72,6 +90,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Prijemni_dokument))]
         public async Task<IHttpActionResult> PostPrijemni_dokument(Prijemni_dokument prijemni_dokument)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,6 +111,12 @@ namespace WebAPI.Controllers
         [ResponseType(typeof(Prijemni_dokument))]
         public async Task<IHttpActionResult> DeletePrijemni_dokument(decimal id)
         {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
             Prijemni_dokument prijemni_dokument = await db.Prijemni_dokument.FindAsync(id);
             if (prijemni_dokument == null)
             {
