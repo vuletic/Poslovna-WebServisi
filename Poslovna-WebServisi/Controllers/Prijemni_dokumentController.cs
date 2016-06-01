@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -100,6 +101,15 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            prijemni_dokument.Datum_formiranja_Prijemni_dokument = DateTime.Now;
+            prijemni_dokument.Status_Prijemni_dokument = "F";
+
+            var cnt = from doc in db.Prijemni_dokument
+                      where doc.Id_Poslovna_godina == prijemni_dokument.Id_Poslovna_godina
+                      select doc;
+
+            prijemni_dokument.Redni_broj_Prijemni_dokument = cnt.Count() + 1;
 
             try
             {
