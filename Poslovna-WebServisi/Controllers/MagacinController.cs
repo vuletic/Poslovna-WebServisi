@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
 
-            return db.Magacins;
+            return db.Magacins.Include(m => m.Preduzece).Include(m => m.Mesto);
         }
 
         // GET: api/Magacin/5

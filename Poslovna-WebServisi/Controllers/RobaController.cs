@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
 
-            return db.Robas;
+            return db.Robas.Include(r => r.Grupa_roba).Include(r => r.Jedinica_mere).Include(r => r.Preduzece);
         }
 
         // GET: api/Roba/5

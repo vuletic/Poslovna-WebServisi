@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
 
-            return db.Preduzeces;
+            return db.Preduzeces.Include(p => p.Mesto);
         }
 
         // GET: api/Preduzece/5

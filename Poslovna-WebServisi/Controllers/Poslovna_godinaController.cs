@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
 
-            return db.Poslovna_godina;
+            return db.Poslovna_godina.Include(p => p.Preduzece);
         }
 
         // GET: api/Poslovna_godina/5

@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
 
-            return db.Poslovni_partner;
+            return db.Poslovni_partner.Include(p => p.Mesto).Include(p => p.Preduzece);
         }
 
         // GET: api/Poslovni_partner/5

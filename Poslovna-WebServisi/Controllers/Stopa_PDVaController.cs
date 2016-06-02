@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
 
-            return db.Stopa_PDV_a;
+            return db.Stopa_PDV_a.Include(s => s.PDV);
         }
 
         // GET: api/Stopa_PDVa/5

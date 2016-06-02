@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
 
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
-            return db.Grupa_roba;
+            return db.Grupa_roba.Include(gr => gr.PDV).Include(gr => gr.Preduzece);
         }
 
         // GET: api/Grupa_roba/5

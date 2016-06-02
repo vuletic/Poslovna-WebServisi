@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
 
-            return db.Robna_kartica;
+            return db.Robna_kartica.Include(r => r.Magacin).Include(r => r.Poslovna_godina).Include(r => r.Roba);
         }
 
         // GET: api/Robna_kartica/5

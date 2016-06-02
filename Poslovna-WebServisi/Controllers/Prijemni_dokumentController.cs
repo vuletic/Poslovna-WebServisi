@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
 
-            return db.Prijemni_dokument;
+            return db.Prijemni_dokument.Include(pd => pd.Magacin1).Include(pd => pd.Poslovna_godina).Include(pd => pd.Poslovni_partner);
         }
 
         // GET: api/Prijemni_dokument/5
@@ -102,14 +102,22 @@ namespace WebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            prijemni_dokument.Datum_formiranja_Prijemni_dokument = DateTime.Now;
+            //prijemni_dokument.Datum_formiranja_Prijemni_dokument = DateTime.Now;
             prijemni_dokument.Status_Prijemni_dokument = "F";
 
-            var cnt = from doc in db.Prijemni_dokument
-                      where doc.Id_Poslovna_godina == prijemni_dokument.Id_Poslovna_godina
-                      select doc;
+            decimal rbr;
+            try
+            {
+                rbr = (from doc in db.Prijemni_dokument
+                       where doc.Id_Poslovna_godina == prijemni_dokument.Id_Poslovna_godina
+                       select doc.Redni_broj_Prijemni_dokument).Max() + 1;
+            }
+            catch
+            {
+                rbr = 1;
+            }
 
-            prijemni_dokument.Redni_broj_Prijemni_dokument = cnt.Count() + 1;
+            prijemni_dokument.Redni_broj_Prijemni_dokument = rbr;
 
             try
             {

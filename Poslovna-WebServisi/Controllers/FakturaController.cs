@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
 
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
-            return db.Fakturas;
+            return db.Fakturas.Include(f => f.Poslovna_godina).Include(f => f.Poslovni_partner);
         }
 
         // GET: api/Faktura/5

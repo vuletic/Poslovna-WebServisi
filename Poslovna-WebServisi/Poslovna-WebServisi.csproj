@@ -192,6 +192,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Analitika_magacinske_karticeController.cs" />
+    <Compile Include="Controllers\BussinesActionController.cs" />
     <Compile Include="Controllers\FakturaController.cs" />
     <Compile Include="Controllers\Grupa_robaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

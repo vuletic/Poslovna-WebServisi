@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
 
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
-            return db.Analitika_magacinske_kartice;
+            return db.Analitika_magacinske_kartice.Include(amg => amg.Robna_kartica.Magacin);
         }
 
         // GET: api/Analitika_magacinske_kartice/5

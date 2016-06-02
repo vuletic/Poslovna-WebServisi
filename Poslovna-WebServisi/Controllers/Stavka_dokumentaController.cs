@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
 
-            return db.Stavka_dokumenta;
+            return db.Stavka_dokumenta.Include(s => s.Prijemni_dokument.Magacin1).Include(s => s.Roba.Jedinica_mere);
         }
 
         // GET: api/Stavka_dokumenta/5
