@@ -14,7 +14,6 @@ namespace WebAPI
     
     public partial class Grupa_roba
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Grupa_roba()
         {
             this.Robas = new HashSet<Roba>();
@@ -27,7 +26,6 @@ namespace WebAPI
     
         public virtual PDV PDV { get; set; }
         public virtual Preduzece Preduzece { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Roba> Robas { get; set; }
     }
 }

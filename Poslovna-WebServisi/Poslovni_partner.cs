@@ -14,7 +14,6 @@ namespace WebAPI
     
     public partial class Poslovni_partner
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Poslovni_partner()
         {
             this.Fakturas = new HashSet<Faktura>();
@@ -30,11 +29,9 @@ namespace WebAPI
         public decimal Maticni_broj_Partner { get; set; }
         public string Adresa_Partner { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Faktura> Fakturas { get; set; }
         public virtual Mesto Mesto { get; set; }
         public virtual Preduzece Preduzece { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prijemni_dokument> Prijemni_dokument { get; set; }
     }
 }

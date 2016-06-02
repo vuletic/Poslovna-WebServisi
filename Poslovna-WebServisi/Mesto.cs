@@ -14,7 +14,6 @@ namespace WebAPI
     
     public partial class Mesto
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Mesto()
         {
             this.Magacins = new HashSet<Magacin>();
@@ -26,11 +25,8 @@ namespace WebAPI
         public string Naziv_Mesto { get; set; }
         public string Postansk__broj_Mesto { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Magacin> Magacins { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Poslovni_partner> Poslovni_partner { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Preduzece> Preduzeces { get; set; }
     }
 }

@@ -17,5 +17,7 @@ namespace WebAPI
         public string Korisnicko_ime_Korisnik { get; set; }
         public string Lozinka_Korisnik { get; set; }
         public decimal Id_Korisnik { get; set; }
+        public string Ime_Korisnik { get; set; }
+        public string Prezime_Korisnik { get; set; }
     }
 }

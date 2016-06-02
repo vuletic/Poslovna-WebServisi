@@ -14,7 +14,6 @@ namespace WebAPI
     
     public partial class Poslovna_godina
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Poslovna_godina()
         {
             this.Fakturas = new HashSet<Faktura>();
@@ -27,12 +26,9 @@ namespace WebAPI
         public decimal Godina_Poslovna_godina { get; set; }
         public bool Zakljucena_Poslovna_godina { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Faktura> Fakturas { get; set; }
         public virtual Preduzece Preduzece { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prijemni_dokument> Prijemni_dokument { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Robna_kartica> Robna_kartica { get; set; }
     }
 }

@@ -58,6 +58,8 @@
           <Property Name="Korisnicko_ime_Korisnik" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Lozinka_Korisnik" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Id_Korisnik" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime_Korisnik" Type="varchar" MaxLength="50" />
+          <Property Name="Prezime_Korisnik" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Magacin">
           <Key>
@@ -662,6 +664,8 @@
           <Property Name="Korisnicko_ime_Korisnik" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Lozinka_Korisnik" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Id_Korisnik" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime_Korisnik" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Prezime_Korisnik" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Magacin">
           <Key>
@@ -1304,6 +1308,8 @@
                 <ScalarProperty Name="Korisnicko_ime_Korisnik" ColumnName="Korisnicko_ime_Korisnik" />
                 <ScalarProperty Name="Lozinka_Korisnik" ColumnName="Lozinka_Korisnik" />
                 <ScalarProperty Name="Id_Korisnik" ColumnName="Id_Korisnik" />
+                <ScalarProperty Name="Ime_Korisnik" ColumnName="Ime_Korisnik" />
+                <ScalarProperty Name="Prezime_Korisnik" ColumnName="Prezime_Korisnik" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

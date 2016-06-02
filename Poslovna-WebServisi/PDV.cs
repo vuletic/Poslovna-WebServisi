@@ -14,7 +14,6 @@ namespace WebAPI
     
     public partial class PDV
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PDV()
         {
             this.Grupa_roba = new HashSet<Grupa_roba>();
@@ -24,9 +23,7 @@ namespace WebAPI
         public decimal Id_PDV { get; set; }
         public string Naziv_PDV { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Grupa_roba> Grupa_roba { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Stopa_PDV_a> Stopa_PDV_a { get; set; }
     }
 }

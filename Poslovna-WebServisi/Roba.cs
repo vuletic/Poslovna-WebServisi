@@ -14,7 +14,6 @@ namespace WebAPI
     
     public partial class Roba
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Roba()
         {
             this.Robna_kartica = new HashSet<Robna_kartica>();
@@ -30,9 +29,7 @@ namespace WebAPI
         public virtual Grupa_roba Grupa_roba { get; set; }
         public virtual Jedinica_mere Jedinica_mere { get; set; }
         public virtual Preduzece Preduzece { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Robna_kartica> Robna_kartica { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Stavka_dokumenta> Stavka_dokumenta { get; set; }
     }
 }

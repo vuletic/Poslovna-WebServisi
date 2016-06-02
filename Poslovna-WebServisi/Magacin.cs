@@ -14,7 +14,6 @@ namespace WebAPI
     
     public partial class Magacin
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Magacin()
         {
             this.Prijemni_dokument = new HashSet<Prijemni_dokument>();
@@ -30,11 +29,8 @@ namespace WebAPI
     
         public virtual Mesto Mesto { get; set; }
         public virtual Preduzece Preduzece { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prijemni_dokument> Prijemni_dokument { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Prijemni_dokument> Prijemni_dokument1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Robna_kartica> Robna_kartica { get; set; }
     }
 }

@@ -287,16 +287,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="PoslovnaModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PoslovnaModel.edmx</DependentUpon>
-      <LastGenOutput>PoslovnaModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="PoslovnaModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>PoslovnaModel.edmx</DependentUpon>
-      <LastGenOutput>PoslovnaModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -322,8 +312,18 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PoslovnaModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="PoslovnaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PoslovnaModel.edmx</DependentUpon>
+      <LastGenOutput>PoslovnaModel.Context.cs</LastGenOutput>
+    </Content>
     <Content Include="PoslovnaModel.edmx.diagram">
       <DependentUpon>PoslovnaModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="PoslovnaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PoslovnaModel.edmx</DependentUpon>
+      <LastGenOutput>PoslovnaModel.cs</LastGenOutput>
     </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

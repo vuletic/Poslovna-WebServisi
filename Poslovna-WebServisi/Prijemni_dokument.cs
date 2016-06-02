@@ -14,7 +14,6 @@ namespace WebAPI
     
     public partial class Prijemni_dokument
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Prijemni_dokument()
         {
             this.Stavka_dokumenta = new HashSet<Stavka_dokumenta>();
@@ -38,7 +37,6 @@ namespace WebAPI
         public virtual Magacin Magacin1 { get; set; }
         public virtual Poslovna_godina Poslovna_godina { get; set; }
         public virtual Poslovni_partner Poslovni_partner { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Stavka_dokumenta> Stavka_dokumenta { get; set; }
     }
 }

@@ -14,7 +14,6 @@ namespace WebAPI
     
     public partial class Robna_kartica
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Robna_kartica()
         {
             this.Analitika_magacinske_kartice = new HashSet<Analitika_magacinske_kartice>();
@@ -34,7 +33,6 @@ namespace WebAPI
         public Nullable<decimal> Ukupna_kolicina_Robna_kartica { get; set; }
         public Nullable<decimal> Ukupna_vrednost_Robna_kartica { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Analitika_magacinske_kartice> Analitika_magacinske_kartice { get; set; }
         public virtual Magacin Magacin { get; set; }
         public virtual Poslovna_godina Poslovna_godina { get; set; }
