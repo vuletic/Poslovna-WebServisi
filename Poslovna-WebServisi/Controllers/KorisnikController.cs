@@ -81,28 +81,27 @@ namespace WebAPI.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/Korisnik
-        [ResponseType(typeof(String))]
-        public String PostKorisnik(Korisnik korisnik)
+        // POST: api/Mesto
+        [ResponseType(typeof(Korisnik))]
+        public async Task<IHttpActionResult> PostKorisnik(Korisnik korisnik)
         {
-           
-            Korisnik k = (Korisnik)(from kor in db.Korisniks
-                                   where kor.Korisnicko_ime_Korisnik == korisnik.Korisnicko_ime_Korisnik
-                                   && kor.Lozinka_Korisnik == korisnik.Lozinka_Korisnik
-                                   select kor).FirstOrDefault();
 
-
-            var payload = new Dictionary<string, object>()
+            if (!ModelState.IsValid)
             {
-                { "sub", k.Korisnicko_ime_Korisnik } 
-            };
-       
-            string jwt = JWT.JsonWebToken.Encode(payload, Properties.Settings.Default.Secret, JWT.JwtHashAlgorithm.HS256);
+                return BadRequest(ModelState);
+            }
 
-            if (k != null)
-                return jwt;
-            else
+            try
+            {
+                db.Korisniks.Add(korisnik);
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
                 return null;
+            }
+
+            return CreatedAtRoute("DefaultApi", new { id = korisnik.Id_Korisnik }, korisnik);
         }
 
     [Route("api/login/{user}/{pass}")]
@@ -114,19 +113,26 @@ namespace WebAPI.Controllers
                                 && kor.Lozinka_Korisnik == pass
                                 select kor).FirstOrDefault();
 
-        var payload = new Dictionary<string, object>()
+        try
+        {
+            var payload = new Dictionary<string, object>()
             {
                 { "sub", k.Korisnicko_ime_Korisnik},
                 {"firstName", k.Ime_Korisnik},
                 {"lastName", k.Prezime_Korisnik} 
             };
+            string jwt = JWT.JsonWebToken.Encode(payload, Properties.Settings.Default.Secret, JWT.JwtHashAlgorithm.HS256);
 
-        string jwt = JWT.JsonWebToken.Encode(payload, Properties.Settings.Default.Secret, JWT.JwtHashAlgorithm.HS256);
-
-        if (k != null)
-            return jwt;
-        else
+            if (k != null)
+                return jwt;
+            else
+                return null;
+        }
+        catch
+        {
             return null;
+        }
+       
     }
 
 
