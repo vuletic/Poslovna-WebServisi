@@ -105,6 +105,30 @@ namespace WebAPI.Controllers
                 return null;
         }
 
+    [Route("api/login/{user}/{pass}")]
+    [HttpPost]
+    public String Login(string user, string pass) {
+
+        Korisnik k = (Korisnik)(from kor in db.Korisniks
+                                where kor.Korisnicko_ime_Korisnik == user
+                                && kor.Lozinka_Korisnik == pass
+                                select kor).FirstOrDefault();
+
+        var payload = new Dictionary<string, object>()
+            {
+                { "sub", k.Korisnicko_ime_Korisnik},
+                {"firstName", k.Ime_Korisnik},
+                {"lastName", k.Prezime_Korisnik} 
+            };
+
+        string jwt = JWT.JsonWebToken.Encode(payload, Properties.Settings.Default.Secret, JWT.JwtHashAlgorithm.HS256);
+
+        if (k != null)
+            return jwt;
+        else
+            return null;
+    }
+
 
         // DELETE: api/Korisnik/5
         [ResponseType(typeof(Korisnik))]

@@ -11,39 +11,67 @@ namespace WebAPI.Controllers
     {
 
         private PoslovnaEntities db = new PoslovnaEntities();
+        private TokenHandler handler = new TokenHandler();
 
-        // GET: api/BussinesAction
-        public IEnumerable<string> Get()
+        [Route("api/calculate/{id}")]
+        [HttpPost]
+        public bool Calculate(decimal id)
         {
-            return new string[] { "value1", "value2" };
+            if (Request.Headers.Authorization == null)
+                return false;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return false;
+            try
+            {
+                db.Iskalkulisi(id);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
-        // GET: api/BussinesAction/5
-        public string Get(int id)
+        [Route("api/record/{id}")]
+        [HttpPost]
+        public bool Record(decimal id)
         {
-            return "value";
+            if (Request.Headers.Authorization == null)
+                return false;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return false;
+            try
+            {
+                db.Proknjizi(id, false);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
-        // POST: api/BussinesAction
-        public void Post(BussinesAction action)
+        [Route("api/cancel/{id}")]
+        [HttpPost]
+        public bool Cancel(decimal id)
         {
-            db.Proknjizi(15, false);
+            if (Request.Headers.Authorization == null)
+                return false;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return false;
+            try
+            {
+                db.Proknjizi(id, true);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
-        // PUT: api/BussinesAction/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/BussinesAction/5
-        public void Delete(int id)
-        {
-        }
-
-        public class BussinesAction
-        {
-            public string action { get; set; }
-            public decimal id { get; set; } 
-        }
     }
 }
