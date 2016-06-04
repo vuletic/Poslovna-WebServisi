@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
 
-            return db.Prijemni_dokument.Include(pd => pd.Magacin1).Include(pd => pd.Poslovna_godina).Include(pd => pd.Poslovni_partner);
+            return db.Prijemni_dokument.Include(pd => pd.Magacin1).Include(pd => pd.Poslovna_godina).Include(pd => pd.Poslovni_partner).Include(pd => pd.Stavka_dokumenta);
         }
 
         // GET: api/Prijemni_dokument/5
