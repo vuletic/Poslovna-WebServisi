@@ -119,7 +119,8 @@ namespace WebAPI.Controllers
             {
                 { "sub", k.Korisnicko_ime_Korisnik},
                 {"firstName", k.Ime_Korisnik},
-                {"lastName", k.Prezime_Korisnik} 
+                {"lastName", k.Prezime_Korisnik},
+                {"id", k.Id_Korisnik}
             };
             string jwt = JWT.JsonWebToken.Encode(payload, Properties.Settings.Default.Secret, JWT.JwtHashAlgorithm.HS256);
 
