@@ -19,11 +19,11 @@ namespace WebAPI.Controllers
         [EnableQuery]
         public IQueryable<Mesto> GetMestoes()
         {
-            if (Request.Headers.Authorization == null)
+           /* if (Request.Headers.Authorization == null)
                 return null;
 
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
-                return null;
+                return null;*/
 
             return db.Mestoes;
         }
