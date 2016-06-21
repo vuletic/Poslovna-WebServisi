@@ -330,6 +330,120 @@ namespace WebAPI.Controllers
             return res;
         }
 
+        [Route("api/pdf/kuf/{godina}")]
+        [HttpGet]
+        public HttpResponseMessage KUF(decimal godina)
+        {
+            if (Request.Headers.Authorization == null)
+                return null;
+
+            if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
+                return null;
+
+            var fakture = from f in db.Fakturas.Include("Poslovni_partner.Mesto").Include("Prijemni_dokument")
+                                where f.Id_Poslovna_godina == godina
+                                select f;
+
+            Preduzece pred = (Preduzece)db.Preduzeces.SingleOrDefault();
+            Poslovna_godina god = (Poslovna_godina)db.Poslovna_godina.Find(godina);
+
+            PdfDocument document = new PdfDocument();
+            //document.Info.Title = "Created with PDFsharp";
+
+            // Create an empty page
+            PdfPage page = document.AddPage();
+
+            // Get an XGraphics object for drawing
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+
+            // Create a font
+            XFont font = new XFont("Verdana", 16, XFontStyle.Regular);
+
+            // Draw the text 
+            gfx.DrawString(pred.Naziv_Preduzece, font, XBrushes.Black,
+              new XRect(0, 15, page.Width, page.Height / 8),
+              XStringFormats.TopCenter);
+
+            font = new XFont("Verdana", 10, XFontStyle.Regular);
+
+            gfx.DrawString("Poslovna godina: " + god.Godina_Poslovna_godina, font, XBrushes.Black,
+              new XRect(page.Width / 2 + 100, 40, page.Width, page.Height / 8),
+              XStringFormats.TopLeft);
+
+
+            gfx.DrawLine(XPens.Black, 20, 105, page.Width - 20, 105);
+
+            font = new XFont("Verdana", 8, XFontStyle.Regular);
+
+            gfx.DrawString("Br. fakture", font, XBrushes.Black,
+              new XRect(20, 90, page.Width, page.Height),
+              XStringFormats.TopLeft);
+
+            gfx.DrawString("Datum fakture", font, XBrushes.Black,
+              new XRect(80, 90, page.Width, page.Height),
+              XStringFormats.TopLeft);
+
+            gfx.DrawString("Naziv dobavljača", font, XBrushes.Black,
+              new XRect(160, 90, page.Width, page.Height),
+              XStringFormats.TopLeft);
+
+            gfx.DrawString("Mesto", font, XBrushes.Black,
+              new XRect(270, 90, page.Width, page.Height),
+              XStringFormats.TopLeft);
+
+            gfx.DrawString("Iznos fakture", font, XBrushes.Black,
+              new XRect(370, 90, page.Width, page.Height),
+              XStringFormats.TopLeft);
+
+            gfx.DrawString("Datum valute", font, XBrushes.Black,
+              new XRect(460, 90, page.Width, page.Height),
+              XStringFormats.TopLeft);
+
+
+            int razmak = 0;
+
+            foreach (Faktura f in fakture)
+            {
+                gfx.DrawString(f.Broj_fakture_Faktura.ToString(), font, XBrushes.Black,
+                  new XRect(20, 115 + razmak, page.Width, page.Height),
+                  XStringFormats.TopLeft);
+
+                gfx.DrawString(f.Datum_fakture_Faktura.Day.ToString() + "." + f.Datum_fakture_Faktura.Month.ToString() + "." + f.Datum_fakture_Faktura.Year.ToString(), font, XBrushes.Black,
+                  new XRect(80, 115 + razmak, page.Width, page.Height),
+                  XStringFormats.TopLeft);
+
+                gfx.DrawString(f.Poslovni_partner.Naziv_Partner, font, XBrushes.Black,
+                  new XRect(160, 115 + razmak, page.Width, page.Height),
+                  XStringFormats.TopLeft);
+
+                gfx.DrawString(f.Poslovni_partner.Mesto.Naziv_Mesto, font, XBrushes.Black,
+                  new XRect(270, 115 + razmak, page.Width, page.Height),
+                  XStringFormats.TopLeft);
+
+                gfx.DrawString(f.Ukupno_za_placanje_Faktura.ToString(), font, XBrushes.Black,
+                  new XRect(370, 115 + razmak, page.Width, page.Height),
+                  XStringFormats.TopLeft);
+
+                gfx.DrawString(f.Datum_valute_Faktura.Day.ToString() + "." + f.Datum_valute_Faktura.Month.ToString() + "." + f.Datum_valute_Faktura.Year.ToString(), font, XBrushes.Black,
+                  new XRect(460, 115 + razmak, page.Width, page.Height),
+                  XStringFormats.TopLeft);
+
+                razmak += 15;
+            }
+
+            // Save the document...
+
+            MemoryStream stream = new MemoryStream();
+            document.Save(stream, false);
+
+            byte[] bytes = stream.ToArray();
+            var res = new HttpResponseMessage();
+            res.Content = new ByteArrayContent(bytes);
+            res.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+            stream.Close();
+            return res;
+        }
+
         [Route("api/calculate/{id}")]
         [HttpPost]
         public bool Calculate(decimal id)
