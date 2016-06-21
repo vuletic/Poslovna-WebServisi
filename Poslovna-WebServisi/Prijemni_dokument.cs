@@ -17,6 +17,7 @@ namespace WebAPI
         public Prijemni_dokument()
         {
             this.Stavka_dokumenta = new HashSet<Stavka_dokumenta>();
+            this.Fakturas = new HashSet<Faktura>();
         }
     
         public decimal Id_Prijemni_dokument { get; set; }
@@ -38,5 +39,6 @@ namespace WebAPI
         public virtual Poslovna_godina Poslovna_godina { get; set; }
         public virtual Poslovni_partner Poslovni_partner { get; set; }
         public virtual ICollection<Stavka_dokumenta> Stavka_dokumenta { get; set; }
+        public virtual ICollection<Faktura> Fakturas { get; set; }
     }
 }
