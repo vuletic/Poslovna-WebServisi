@@ -54,6 +54,7 @@ namespace WebAPI.Controllers
               new XRect(0, 25, page.Width, page.Height / 8),
               XStringFormats.TopCenter);
 
+            font = new XFont("Verdana", 10, XFontStyle.Regular);
             gfx.DrawString("Datum: " + pd.Datum_formiranja_Prijemni_dokument.ToString("dd.MM.yyyy.") , font, XBrushes.Black,
               new XRect(450, 25, page.Width, page.Height),
               XStringFormats.TopLeft);
@@ -68,30 +69,42 @@ namespace WebAPI.Controllers
 
             gfx.DrawLine(XPens.Black, 20, 110, page.Width-20, 110);
 
-            font = new XFont("Verdana", 10, XFontStyle.Regular);
+            font = new XFont("Verdana", 8, XFontStyle.Regular);
 
             gfx.DrawString("Šifra", font, XBrushes.Black,
               new XRect(20, 90, page.Width, page.Height),
               XStringFormats.TopLeft);
 
             gfx.DrawString("Roba", font, XBrushes.Black,
-              new XRect(60, 90, page.Width, page.Height),
+              new XRect(50, 90, page.Width, page.Height),
               XStringFormats.TopLeft);
 
             gfx.DrawString("Količina", font, XBrushes.Black,
-              new XRect(180, 90, page.Width, page.Height),
+              new XRect(160, 90, page.Width, page.Height),
               XStringFormats.TopLeft);
 
             gfx.DrawString("M.j.", font, XBrushes.Black,
-              new XRect(260, 90, page.Width, page.Height),
+              new XRect(220, 90, page.Width, page.Height),
               XStringFormats.TopLeft);
             
             gfx.DrawString("Cena", font, XBrushes.Black,
+              new XRect(250, 90, page.Width, page.Height),
+              XStringFormats.TopLeft);
+
+            gfx.DrawString("Nab. vr.", font, XBrushes.Black,
               new XRect(300, 90, page.Width, page.Height),
               XStringFormats.TopLeft);
 
-            gfx.DrawString("Vrednost", font, XBrushes.Black,
-              new XRect(380, 90, page.Width, page.Height),
+            gfx.DrawString("Zav. troškovi", font, XBrushes.Black,
+              new XRect(350, 90, page.Width, page.Height),
+              XStringFormats.TopLeft);
+
+            gfx.DrawString("Kalk. cena", font, XBrushes.Black,
+              new XRect(410, 90, page.Width, page.Height),
+              XStringFormats.TopLeft);
+
+            gfx.DrawString("Uk. vrednost", font, XBrushes.Black,
+              new XRect(470, 90, page.Width, page.Height),
               XStringFormats.TopLeft);
 
             int razmak = 0;
@@ -102,26 +115,38 @@ namespace WebAPI.Controllers
                   XStringFormats.TopLeft);
 
                 gfx.DrawString(sd.Roba.Naziv_Roba, font, XBrushes.Black,
-                  new XRect(60, 120 + razmak, page.Width, page.Height),
+                  new XRect(50, 120 + razmak, page.Width, page.Height),
                   XStringFormats.TopLeft);
 
                 gfx.DrawString(sd.Kolicina_Stavka_dokumenta.ToString(), font, XBrushes.Black,
-                  new XRect(180, 120 + razmak, page.Width, page.Height),
+                  new XRect(160, 120 + razmak, page.Width, page.Height),
                   XStringFormats.TopLeft);
 
                 gfx.DrawString(sd.Roba.Jedinica_mere.Oznaka_Jedinica_mere, font, XBrushes.Black,
-                  new XRect(260, 120 + razmak, page.Width, page.Height),
+                  new XRect(220, 120 + razmak, page.Width, page.Height),
                   XStringFormats.TopLeft);
 
                 gfx.DrawString(sd.Nabavna_cena_Stavka_dokumenta.ToString(), font, XBrushes.Black,
-                  new XRect(300, 120 + razmak, page.Width, page.Height),
+                  new XRect(250, 120 + razmak, page.Width, page.Height),
                   XStringFormats.TopLeft);
 
                 gfx.DrawString(sd.Nabavna_vrednost_Stavka_dokumenta.ToString(), font, XBrushes.Black,
-                  new XRect(380, 120 + razmak, page.Width, page.Height),
+                  new XRect(300, 120 + razmak, page.Width, page.Height),
                   XStringFormats.TopLeft);
 
-                razmak += 20;
+                gfx.DrawString((sd.Zavisni_trosak_Stavka_dokumenta + sd.Transportni_trosak_Stavka_dokumenta).ToString(), font, XBrushes.Black,
+                  new XRect(350, 120 + razmak, page.Width, page.Height),
+                  XStringFormats.TopLeft);
+
+                gfx.DrawString(sd.Kalkulisana_cena_Stavka_dokumenta.ToString(), font, XBrushes.Black,
+                  new XRect(410, 120 + razmak, page.Width, page.Height),
+                  XStringFormats.TopLeft);
+
+                gfx.DrawString(sd.Ukupna_vrednost_Stavka_dokumenta.ToString(), font, XBrushes.Black,
+                  new XRect(470, 120 + razmak, page.Width, page.Height),
+                  XStringFormats.TopLeft);
+
+                razmak += 15;
             }
 
             gfx.DrawLine(XPens.Black, 20, 120 + razmak, page.Width - 20, 120 + razmak);
