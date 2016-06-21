@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
 
-            Robna_kartica robna_kartica = await db.Robna_kartica.FindAsync(id);
+            Robna_kartica robna_kartica = db.Robna_kartica.Include("Roba.Jedinica_mere").Include("Magacin").Include("Poslovna_godina").SingleOrDefault(i => i.Id_Robna_kartica == id);
             if (robna_kartica == null)
             {
                 return NotFound();
