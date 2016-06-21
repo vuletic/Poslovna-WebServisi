@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PoslovnaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PoslovnaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Analitika_magacinske_kartice">
           <Key>
             <PropertyRef Name="Id_Analitika_magacinske_kartice" />
@@ -24,6 +24,7 @@
             <PropertyRef Name="Id_Faktura" />
           </Key>
           <Property Name="Id_Faktura" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Prijemni_dokument" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Id_Poslovna_godina" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Id_Partner" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Broj_fakture_Faktura" Type="numeric" Precision="18" Scale="0" Nullable="false" />
@@ -199,6 +200,18 @@
             </Principal>
             <Dependent Role="Analitika_magacinske_kartice">
               <PropertyRef Name="Id_Robna_kartica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Faktura_Prijemni_dokument">
+          <End Role="Prijemni_dokument" Type="Self.Prijemni_dokument" Multiplicity="1" />
+          <End Role="Faktura" Type="Self.Faktura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prijemni_dokument">
+              <PropertyRef Name="Id_Prijemni_dokument" />
+            </Principal>
+            <Dependent Role="Faktura">
+              <PropertyRef Name="Id_Prijemni_dokument" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -506,6 +519,10 @@
             <End Role="Robna_kartica" EntitySet="Robna_kartica" />
             <End Role="Analitika_magacinske_kartice" EntitySet="Analitika_magacinske_kartice" />
           </AssociationSet>
+          <AssociationSet Name="FK_Faktura_Prijemni_dokument" Association="Self.FK_Faktura_Prijemni_dokument">
+            <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
+            <End Role="Faktura" EntitySet="Faktura" />
+          </AssociationSet>
           <AssociationSet Name="FK_FAKTURA_RELATIONS_POSLOVNA" Association="Self.FK_FAKTURA_RELATIONS_POSLOVNA">
             <End Role="Poslovna_godina" EntitySet="Poslovna_godina" />
             <End Role="Faktura" EntitySet="Faktura" />
@@ -599,8 +616,7 @@
             <End Role="Stopa_PDV_a" EntitySet="Stopa_PDV_a" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PoslovnaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -635,6 +651,8 @@
           <Property Name="Ukupno_za_placanje_Faktura" Type="Decimal" Precision="12" Scale="2" />
           <NavigationProperty Name="Poslovna_godina" Relationship="Self.FK_FAKTURA_RELATIONS_POSLOVNA" FromRole="Faktura" ToRole="Poslovna_godina" />
           <NavigationProperty Name="Poslovni_partner" Relationship="Self.FK_FAKTURA_RELATIONS_POSLOVNI" FromRole="Faktura" ToRole="Poslovni_partner" />
+          <Property Name="Id_Prijemni_dokument" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="Prijemni_dokument" Relationship="PoslovnaModel.FK_Faktura_Prijemni_dokument" FromRole="Faktura" ToRole="Prijemni_dokument" />
         </EntityType>
         <EntityType Name="Grupa_roba">
           <Key>
@@ -771,6 +789,7 @@
           <NavigationProperty Name="Poslovna_godina" Relationship="Self.FK_Prijemni_dokument_Poslovna_godina" FromRole="Prijemni_dokument" ToRole="Poslovna_godina" />
           <NavigationProperty Name="Poslovni_partner" Relationship="Self.FK_PRIJEMNI_POSLOVNI__POSLOVNI" FromRole="Prijemni_dokument" ToRole="Poslovni_partner" />
           <NavigationProperty Name="Stavka_dokumenta" Relationship="Self.FK_STAVKA_D_RELATIONS_PRIJEMNI" FromRole="Prijemni_dokument" ToRole="Stavka_dokumenta" />
+          <NavigationProperty Name="Fakturas" Relationship="PoslovnaModel.FK_Faktura_Prijemni_dokument" FromRole="Prijemni_dokument" ToRole="Faktura" />
         </EntityType>
         <EntityType Name="Roba">
           <Key>
@@ -1239,13 +1258,29 @@
             <End Role="Stavka_dokumenta" EntitySet="Stavka_dokumenta" />
           </AssociationSet>
           <FunctionImport Name="Iskalkulisi">
-            <Parameter Name="Id_PD" Mode="In" Type="Decimal" />
+          <Parameter Name="Id_PD" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="Proknjizi">
             <Parameter Name="id_primke" Mode="In" Type="Decimal" />
             <Parameter Name="storno" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <AssociationSet Name="FK_Faktura_Prijemni_dokument" Association="PoslovnaModel.FK_Faktura_Prijemni_dokument">
+            <End Role="Prijemni_dokument" EntitySet="Prijemni_dokument" />
+            <End Role="Faktura" EntitySet="Fakturas" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Faktura_Prijemni_dokument">
+          <End Type="PoslovnaModel.Prijemni_dokument" Role="Prijemni_dokument" Multiplicity="1" />
+          <End Type="PoslovnaModel.Faktura" Role="Faktura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prijemni_dokument">
+              <PropertyRef Name="Id_Prijemni_dokument" />
+            </Principal>
+            <Dependent Role="Faktura">
+              <PropertyRef Name="Id_Prijemni_dokument" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1270,6 +1305,7 @@
           <EntitySetMapping Name="Fakturas">
             <EntityTypeMapping TypeName="PoslovnaModel.Faktura">
               <MappingFragment StoreEntitySet="Faktura">
+                <ScalarProperty Name="Id_Prijemni_dokument" ColumnName="Id_Prijemni_dokument" />
                 <ScalarProperty Name="Id_Faktura" ColumnName="Id_Faktura" />
                 <ScalarProperty Name="Id_Poslovna_godina" ColumnName="Id_Poslovna_godina" />
                 <ScalarProperty Name="Id_Partner" ColumnName="Id_Partner" />

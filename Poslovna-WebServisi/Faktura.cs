@@ -24,8 +24,10 @@ namespace WebAPI
         public decimal Ukupan_iznos_bez_PDV_a_Faktura { get; set; }
         public decimal Ukupan_PDV_Faktura { get; set; }
         public Nullable<decimal> Ukupno_za_placanje_Faktura { get; set; }
+        public decimal Id_Prijemni_dokument { get; set; }
     
         public virtual Poslovna_godina Poslovna_godina { get; set; }
         public virtual Poslovni_partner Poslovni_partner { get; set; }
+        public virtual Prijemni_dokument Prijemni_dokument { get; set; }
     }
 }

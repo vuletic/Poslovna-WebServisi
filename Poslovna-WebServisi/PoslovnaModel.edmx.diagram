@@ -45,6 +45,7 @@
         <AssociationConnector Association="PoslovnaModel.FK_STAVKA_D_RELATIONS_PRIJEMNI" ManuallyRouted="false" />
         <AssociationConnector Association="PoslovnaModel.FK_ROBNA_KA_RELATIONS_ROBA" ManuallyRouted="false" />
         <AssociationConnector Association="PoslovnaModel.FK_STAVKA_D_RELATIONS_ROBA" ManuallyRouted="false" />
+        <AssociationConnector Association="PoslovnaModel.FK_Faktura_Prijemni_dokument" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
