@@ -340,10 +340,20 @@ namespace WebAPI.Controllers
             if (!handler.CheckToken(Request.Headers.Authorization.ToString()))
                 return null;
 
-            var fakture = from f in db.Fakturas.Include("Poslovni_partner.Mesto").Include("Prijemni_dokument")
-                                where f.Id_Poslovna_godina == godina
-                                select f;
+            IQueryable<Faktura> fakture = null;
 
+            if (godina == -1)
+            {
+                fakture = db.Fakturas.Include("Poslovni_partner.Mesto").Include("Prijemni_dokument");
+            }
+            else
+            {
+                fakture = from f in db.Fakturas.Include("Poslovni_partner.Mesto").Include("Prijemni_dokument")
+                          where f.Id_Poslovna_godina == godina
+                          select f;
+            }
+            
+          
             Preduzece pred = (Preduzece)db.Preduzeces.SingleOrDefault();
             Poslovna_godina god = (Poslovna_godina)db.Poslovna_godina.Find(godina);
 
@@ -366,9 +376,10 @@ namespace WebAPI.Controllers
 
             font = new XFont("Verdana", 10, XFontStyle.Regular);
 
-            gfx.DrawString("Poslovna godina: " + god.Godina_Poslovna_godina, font, XBrushes.Black,
-              new XRect(page.Width / 2 + 100, 40, page.Width, page.Height / 8),
-              XStringFormats.TopLeft);
+            if(godina != -1)
+                gfx.DrawString("Poslovna godina: " + god.Godina_Poslovna_godina, font, XBrushes.Black,
+                  new XRect(page.Width / 2 + 100, 40, page.Width, page.Height / 8),
+                  XStringFormats.TopLeft);
 
 
             gfx.DrawLine(XPens.Black, 20, 105, page.Width - 20, 105);
